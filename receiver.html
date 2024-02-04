@@ -3,11 +3,26 @@
   <script type="text/javascript"
       src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js">
   </script>
+  <!-- Cast Debug Logger -->
+  <script 
+      src="//www.gstatic.com/cast/sdk/libs/devtools/debug_layer/caf_receiver_logger.js">
+  </script>
 </head>
 <body>
   <cast-media-player></cast-media-player>
   <script>
     cast.framework.CastReceiverContext.getInstance().start();
+
+    const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
+
+    const context = cast.framework.CastReceiverContext.getInstance();
+
+    context.addEventListener(cast.framework.system.EventType.READY, () => {
+    if (!castDebugLogger.debugOverlayElement_) {
+      // Enable debug logger and show a 'DEBUG MODE' overlay at top left corner.
+      castDebugLogger.setEnabled(true);
+     }
+    });
   </script>
 </body>
 </html>
