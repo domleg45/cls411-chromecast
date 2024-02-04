@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chromecast Sender Example</title>
+  <script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
+</head>
+<body>
+  <h1>Chromecast Sender Example</h1>
+  <button id="castButton">Cast to Chromecast</button>
+
+  <script>
+    const applicationID = '3DDC41A0';
+    const namespace = 'urn:x-cast:your.namespace';
+
+    const castButton = document.getElementById('castButton');
+    
+    castButton.addEventListener('click', function() {
+      chrome.cast.requestSession(
+        function(session) {
+          const message = 'Hello, Chromecast!';
+          session.sendMessage(namespace, { message });
+        },
+        function(errorCode) {
+          console.error('Error requesting session', errorCode);
+        }
+      );
+    });
+
+    window['__onGCastApiAvailable'] = function(loaded, errorInfo) {
+      if (loaded) {
+        initializeCastApi();
+      } else {
+        console.error('Cast API error', errorInfo);
+      }
+    };
+
+    function initializeCastApi() {
+      const sessionRequest = new chrome.cast.SessionRequest(applicationID);
+      const apiConfig = new chrome.cast.ApiConfig(sessionRequest, sessionListener, receiverListener);
+
+      chrome.cast.initialize(apiConfig, function() {
+        console.log('Cast API initialized');
+      }, function(error) {
+        console.error('Error initializing Cast API', error);
+      });
+    }
+
+    function sessionListener(session) {
+      console.log('Session listener: Session ID', session.sessionId);
+      // Handle session updates or events here
+    }
+
+    function receiverListener(availability) {
+      if (availability === chrome.cast.ReceiverAvailability.AVAILABLE) {
+        console.log('Chromecast receiver available');
+        castButton.style.display = 'block';
+      } else {
+        console.log('No Chromecast receiver available');
+        castButton.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>
