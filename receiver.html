@@ -11,8 +11,6 @@
 <body>
   <cast-media-player></cast-media-player>
   <script>
-    cast.framework.CastReceiverContext.getInstance().start();
-
     const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
 
     const context = cast.framework.CastReceiverContext.getInstance();
@@ -23,6 +21,8 @@
       castDebugLogger.setEnabled(true);
      }
     });
+    
+    cast.framework.CastReceiverContext.getInstance().start();
   </script>
 </body>
 </html>
