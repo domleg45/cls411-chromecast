@@ -7,10 +7,19 @@
   <script 
       src="//www.gstatic.com/cast/sdk/libs/devtools/debug_layer/caf_receiver_logger.js">
   </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Chromecast Receiver</title>
+  <link rel="stylesheet" href="receiver.css">
 </head>
 <body>
-  <h1 id="test">Test</h1>
-  <cast-media-player></cast-media-player>
+  <div class="container">
+    <h1>Welcome to My Custom Chromecast Receiver</h1>
+    <div class="content">
+      <p>This is a simple example of a custom Chromecast receiver application.</p>
+      <!-- Add your custom content here -->
+    </div>
+  </div>
   <script>
     const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
 
