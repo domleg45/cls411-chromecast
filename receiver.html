@@ -22,8 +22,48 @@
       castDebugLogger.setEnabled(true);
      }
     });
+
+    // Custom CastReceiverOptions
+    const customCastReceiverOptions = new cast.framework.CastReceiverOptions();
+    customCastReceiverOptions.disableIdleTimeout = true; // Disable idle timeout for testing purposes
+
+    // Custom ReceiverManager
+    const castReceiverManager = cast.framework.CastReceiverManager.getInstance();
+    castReceiverManager.start(customCastReceiverOptions);
+
+    // Custom CastMessageBus
+    const messageBus = castReceiverManager.getCastMessageBus('urn:x-cast:com.example.custom');
+
+    // Handle messages from sender
+    messageBus.onMessage = function(event) {
+      const senderId = event.senderId;
+      const message = event.data;
+
+      // Handle custom messages
+      console.log(`Received message from sender ${senderId}: ${message}`);
+
+      // Handle your custom logic here
+
+      // Send a response back to the sender if needed
+      messageBus.send(senderId, 'Received your message');
+    };
+
+    // Handle when a sender is connected
+    castReceiverManager.onSenderConnected = function(event) {
+      console.log(`Sender ${event.senderId} connected`);
+    };
+
+    // Handle when a sender is disconnected
+    castReceiverManager.onSenderDisconnected = function(event) {
+      console.log(`Sender ${event.senderId} disconnected`);
+    };
+
+    // Handle when the session is ended
+    castReceiverManager.onShutdown = function(event) {
+      console.log('Session ended');
+    };
     
-    cast.framework.CastReceiverContext.getInstance().start();
+    //cast.framework.CastReceiverContext.getInstance().start();
   </script>
 </body>
 </html>
