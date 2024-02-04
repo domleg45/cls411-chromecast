@@ -261,6 +261,10 @@ var PlayerHandler = function (castPlayer) {
 
     document.getElementById('play').style.display = 'none';
     document.getElementById('pause').style.display = 'block';
+    document.getElementById('test').style.display = 'block';
+    var test = document.getElementById(variable);
+    test.value = 'Pause???'
+
   };
 
   this.pause = function () {
@@ -268,6 +272,9 @@ var PlayerHandler = function (castPlayer) {
     castPlayer.playerState = PLAYER_STATE.PAUSED;
     document.getElementById('play').style.display = 'block';
     document.getElementById('pause').style.display = 'none';
+    document.getElementById('test').style.display = 'block';
+    var test = document.getElementById(variable);
+    test.value = 'Pause!!!'
   };
 
   this.stop = function () {
