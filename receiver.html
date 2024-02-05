@@ -1,67 +1,13 @@
-<!-- index.html -->
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Debug Chromecast Receiver</title>
-  <link rel="stylesheet" href="receiver.css">
-  <script src="https://www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
+  <script type="text/javascript"
+      src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js">
+  </script>
 </head>
 <body>
-  <div class="container">
-    <h1>Welcome to Debug Chromecast Receiver</h1>
-    <div class="content">
-      <p>This is a Chromecast receiver application with a lot of text for testing purposes.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ullamcorper, justo non tincidunt interdum, tortor nisl vulputate metus, at aliquam mi arcu et velit. Integer at ullamcorper est. Vivamus bibendum libero vel mauris varius, eu mattis nisi suscipit.</p>
-      <p>Proin sit amet risus et nunc lacinia fringilla. Duis congue augue ut feugiat fermentum. Etiam ullamcorper justo id libero interdum, a egestas turpis feugiat. Fusce efficitur magna id lectus lacinia, eu euismod ex malesuada.</p>
-    </div>
-    <div class="watermark">
-      <p>Debug Mode</p>
-    </div>
-  </div>
-
-  <script type="text/javascript">
-    // Debug CastReceiverOptions
-    const debugCastReceiverOptions = new cast.framework.CastReceiverOptions();
-    debugCastReceiverOptions.disableIdleTimeout = true; // Disable idle timeout for testing
-    debugCastReceiverOptions.maxInactivity = 600; // Set a longer maximum inactivity timeout for testing (in seconds)
-
-    // Custom ReceiverManager with debug options
-    const castReceiverManager = cast.framework.CastReceiverManager.getInstance();
-    castReceiverManager.start(debugCastReceiverOptions);
-
-    // Custom CastMessageBus
-    const messageBus = castReceiverManager.getCastMessageBus('urn:x-cast:com.example.debug');
-
-    // Handle messages from sender
-    messageBus.onMessage = function(event) {
-      const senderId = event.senderId;
-      const message = event.data;
-
-      // Handle custom messages
-      console.log(`Received message from sender ${senderId}: ${message}`);
-
-      // Handle your custom logic here
-
-      // Send a response back to the sender if needed
-      messageBus.send(senderId, 'Received your message');
-    };
-
-    // Handle when a sender is connected
-    castReceiverManager.onSenderConnected = function(event) {
-      console.log(`Sender ${event.senderId} connected`);
-    };
-
-    // Handle when a sender is disconnected
-    castReceiverManager.onSenderDisconnected = function(event) {
-      console.log(`Sender ${event.senderId} disconnected`);
-    };
-
-    // Handle when the session is ended
-    castReceiverManager.onShutdown = function(event) {
-      console.log('Session ended');
-    };
+  <cast-media-player></cast-media-player>
+  <script>
+    cast.framework.CastReceiverContext.getInstance().start();
   </script>
 </body>
 </html>
