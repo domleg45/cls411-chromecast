@@ -1072,6 +1072,26 @@ CastPlayer.prototype.stopProgressTimer = function () {
   }
 };
 
+// Récupérez la référence vers le bouton de pause
+var pauseButton = document.getElementById('pauseButton');
+
+// Récupérez la référence vers votre lecteur vidéo ou média
+var mediaElement = document.getElementById('video_element'); // Remplacez 'votreMediaElementId' par l'ID réel de votre média
+
+// Ajoutez un gestionnaire d'événements pour le clic sur le bouton de pause
+pauseButton.addEventListener('click', function() {
+    // Vérifiez si le média est en cours de lecture
+    if (!mediaElement.paused) {
+        // Mettez en pause le média
+        mediaElement.pause();
+        pauseButton.innerText = 'Play'; // Changez le texte du bouton en 'Play' lorsqu'il est en pause
+    } else {
+        // Reprenez la lecture du média
+        mediaElement.play();
+        pauseButton.innerText = 'Pause'; // Changez le texte du bouton en 'Pause' lorsqu'il est en lecture
+    }
+});
+
 /**
  * Increment media current time depending on remote or local playback
  */
