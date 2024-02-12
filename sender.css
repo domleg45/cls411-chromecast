@@ -1,0 +1,15 @@
+body {
+    margin: 10%; /* Marge en pourcentage */
+}
+
+.container {
+      background: black;
+      border-radius: 15px 15px 0px 0px;
+      text-align: center;
+      color: white;
+      padding: 20px;
+}
+
+.btn {
+    margin: 8px;
+}
