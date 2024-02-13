@@ -84,6 +84,7 @@ function initializeApiOnly() {
     const apiConfig = new chrome.cast.ApiConfig(sessionRequest, sessionListener, receiverListener);
 
     chrome.cast.initialize(apiConfig, onInitSuccess, onError);
+    initializeCastApi();
 }
 
 function loadMedia(videoUrl) {
