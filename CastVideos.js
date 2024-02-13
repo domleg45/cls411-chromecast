@@ -148,7 +148,7 @@ function initializeCastApi() {
       );
 
       remotePlayerController.addEventListener(
-        cast.framework.RemotePlayerEventType.TITLE_CHANGED,
+        cast.framework.RemotePlayerEventType.CURRENT_TIME_CHANGED,
         function(event) {
           if (!event.value) {
             updateSeekSlider();
