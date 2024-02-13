@@ -2,6 +2,8 @@ let session;
 let media;
 let isPlaying = true;
 let currentVideoIndex = 0;
+let currentVideoUrl;
+const defaultContentType = 'video/mp4';
 const applicationID = '3DDC41A0';
 const videoList = [
     'https://transfertco.ca/video/DBillPrelude.mp4',
@@ -85,10 +87,39 @@ function initializeApiOnly() {
 }
 
 function loadMedia(videoUrl) {
-    const mediaInfo = new chrome.cast.media.MediaInfo(videoUrl, 'video/mp4');
+    currentVideoUrl = videoUrl;
+    const mediaInfo = new chrome.cast.media.MediaInfo(videoUrl, defaultContentType);
     const request = new chrome.cast.media.LoadRequest(mediaInfo);
 
     session.loadMedia(request, onMediaDiscovered, onError);
+}
+
+// Fonction pour mettre à jour le curseur de temps
+function updateSeekSlider() {
+    var timeSlider = document.getElementById('timeSlider');
+    var remotePlayer = new cast.framework.RemotePlayer();
+    var position = remotePlayer.currentTime;
+    var duration = remotePlayer.duration;
+
+    // Mettez à jour la position du curseur de recherche en fonction de la position actuelle et de la durée totale
+    if (duration > 0) {
+        timeSlider.value = (position / duration) * 100;
+    } else {
+        timeSlider.value = 0;
+    }
+}
+
+function seekTimeMedia() {
+    var timeSlider = document.getElementById('timeSlider');
+    var seekValue = parseFloat(timeSlider.value);
+
+    var remotePlayer = new cast.framework.RemotePlayer();
+    var remotePlayerController = new cast.framework.RemotePlayerController(remotePlayer);
+
+    var position = (seekValue / 100) * remotePlayer.duration;
+
+    // Utilisez le contrôleur pour rechercher à la position spécifiée
+    remotePlayerController.seek(position);
 }
 
 
@@ -102,7 +133,29 @@ function initializeCastApi() {
     // Initialize CastContext with the CastOptions
     const castContext = cast.framework.CastContext.getInstance();
     castContext.setOptions(castOptions);
+
+    var remotePlayer = new cast.framework.RemotePlayer();
+    var remotePlayerController = new cast.framework.RemotePlayerController(remotePlayer);
     
+    // Ajouter les évéments ici pour le curseur par exemple.
+    remotePlayerController.addEventListener(
+        cast.framework.RemotePlayerEventType.IS_PAUSED_CHANGED,
+        function(event) {
+          if (!event.value) {
+            updateSeekSlider();
+          }
+        }
+      );
+
+      remotePlayerController.addEventListener(
+        cast.framework.RemotePlayerEventType.TITLE_CHANGED,
+        function(event) {
+          if (!event.value) {
+            updateSeekSlider();
+          }
+        }
+      );      
+
     // Your existing event listener and button click handling code
     const castButton = document.getElementById('castButton');
     cast.framework.CastContext.getInstance().addEventListener(
