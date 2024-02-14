@@ -4,6 +4,7 @@ let isPlaying = true;
 let currentVideoIndex = 0;
 let currentVideoUrl;
 let remotePlayerController;
+let updateInterval;
 const seekSlider = document.getElementById('seekSlider');
 const currentTimeElement = document.getElementById('currentTime');
 const totalTimeElement = document.getElementById('totalTime');
@@ -63,23 +64,21 @@ function initializeSeekSlider(remotePlayerController, mediaSession) {
    // Set max value of seek slider to media duration in seconds
    seekSlider.max = mediaSession.media.duration;
 
-   // Update seek slider and time elements on time update
-   mediaSession.addUpdateListener(isAlive => {
-     if (isAlive) {
-       const currentTime = mediaSession.getEstimatedTime();
-       const totalTime = mediaSession.media.duration;
-
-       seekSlider.value = currentTime;
-       currentTimeElement.textContent = formatTime(currentTime);
-       totalTimeElement.textContent = formatTime(totalTime);
-     }
-   });
-
-   // Handle seek slider change
-   seekSlider.addEventListener('input', () => {
-     const seekTime = parseFloat(seekSlider.value);
-     remotePlayerController.seek(seekTime);
-   });
+    // Update seek slider and time elements on time update
+    updateInterval = setInterval(() => {
+        const currentTime = mediaSession.getEstimatedTime();
+        const totalTime = mediaSession.media.duration;
+  
+        seekSlider.value = currentTime;
+        currentTimeElement.textContent = formatTime(currentTime);
+        totalTimeElement.textContent = formatTime(totalTime);
+      }, 1000); //chaque 1000 ms... 1 sec
+  
+      // slider change
+      seekSlider.addEventListener('input', () => {
+        const seekTime = parseFloat(seekSlider.value);
+        remotePlayerController.seek(seekTime);
+      });
  }
 
 function receiverListener(availability) {
