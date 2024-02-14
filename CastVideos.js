@@ -127,14 +127,6 @@ function seekTimeMedia() {
 // Function to initialize the Cast SDK
 function initializeCastApi() {
 
-    // Set up Cast SDK options
-    const castOptions = new cast.framework.CastOptions();
-    castOptions.receiverApplicationId = applicationID;
-
-    // Initialize CastContext with the CastOptions
-    const castContext = cast.framework.CastContext.getInstance();
-    castContext.setOptions(castOptions);
-
     var remotePlayer = new cast.framework.RemotePlayer();
     var remotePlayerController = new cast.framework.RemotePlayerController(remotePlayer);
     
