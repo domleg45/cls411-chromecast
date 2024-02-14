@@ -156,47 +156,4 @@ function initializeCastApi() {
           }
         }
       );      
-
-    // Your existing event listener and button click handling code
-    const castButton = document.getElementById('castButton');
-    cast.framework.CastContext.getInstance().addEventListener(
-        cast.framework.CastContextEventType.CAST_STATE_CHANGED,
-        function(event) {
-            switch (event.castState) {
-                case cast.framework.CastState.NO_DEVICES_AVAILABLE:
-                    castButton.disabled = true;
-                    break;
-                case cast.framework.CastState.NOT_CONNECTED:
-                    castButton.disabled = false;
-                    break;
-                case cast.framework.CastState.CONNECTING:
-                case cast.framework.CastState.CONNECTED:
-                    castButton.disabled = true;
-                    break;
-            }
-        }
-    );
-
-    // Add a click event listener to the Cast button
-    castButton.addEventListener('click', function() {
-        // Get the current Cast session
-        const session = castContext.getCurrentSession();
-
-        // Check if there is an active Cast session
-        if (session) {
-            // Already connected - do nothing or disconnect if needed
-        } else {
-            // Not connected - initiate a Cast session
-            castContext.requestSession().then(
-                function() {
-                    // Handle successful connection
-                    console.log('Connected to Chromecast');
-                },
-                function(errorCode) {
-                    // Handle connection error
-                    console.error('Error connecting to Chromecast: ' + errorCode);
-                }
-            );
-        }
-    });
 }
