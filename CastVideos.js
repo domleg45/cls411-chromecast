@@ -16,6 +16,11 @@ document.getElementById('connectButton').addEventListener('click', () => {
     initializeApiOnly();
 });
 
+document.getElementById('timeSlider').addEventListener('change', () => {
+    seekTimeMedia();
+});
+
+
 document.getElementById('startBtn').addEventListener('click', () => {
     if (session) {
         loadMedia(videoList[currentVideoIndex]);
