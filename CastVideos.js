@@ -134,6 +134,16 @@ function initializeCastApi() {
 
     var remotePlayer = new cast.framework.RemotePlayer();
     var remotePlayerController = new cast.framework.RemotePlayerController(remotePlayer);
+
+    remotePlayerController.addEventListener(
+        cast.framework.RemotePlayerEventType.SEEK,
+        (event) => {
+          // Handle seek event
+          const seekTimeInSeconds = event.value;
+          console.log('Seeking to:', seekTimeInSeconds, 'seconds');
+        }
+      );
+
     
     // Ajouter les évéments ici pour le curseur par exemple.
     remotePlayerController.addEventListener(
