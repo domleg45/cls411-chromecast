@@ -191,7 +191,6 @@ function initializeCastApi() {
                 function() {
                     // Handle successful connection
                     console.log('Connected to Chromecast');
-                    initializeApiOnly();
                 },
                 function(errorCode) {
                     // Handle connection error
