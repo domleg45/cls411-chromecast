@@ -113,8 +113,8 @@ function loadMedia(videoUrl) {
     currentVideoUrl = videoUrl;
     const mediaInfo = new chrome.cast.media.MediaInfo(videoUrl, defaultContentType);
     const request = new chrome.cast.media.LoadRequest(mediaInfo);
-    const remotePlayer = new cast.framework.RemotePlayer()
-    const remotePlayerController = new cast.framework.RemotePlayerController(remotePlayer)
+    const remotePlayer = new cast.framework.RemotePlayer();
+    const remotePlayerController = new cast.framework.RemotePlayerController(remotePlayer);
 
     session.loadMedia(request, mediaSession => {
         console.log('Media chargé avec succès');
