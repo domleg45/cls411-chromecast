@@ -57,8 +57,8 @@ function sessionListener(newSession) {
 
 
 
-function initializeSeekSlider(remotePlayerController, mediaItem) {
-    media = mediaItem;
+function initializeSeekSlider(remotePlayerController, mediaSession) {
+    media = mediaSession.media;
     document.getElementById('playBtn').style.display = 'block';
    // Set max value of seek slider to media duration in seconds
    seekSlider.max = mediaSession.media.duration;
