@@ -1,5 +1,5 @@
-let session;
-let media;
+let currentSession;
+let currentMediaSession;
 let isPlaying = true;
 let currentVideoIndex = 0;
 let currentVideoUrl;
@@ -21,7 +21,7 @@ document.getElementById('connectButton').addEventListener('click', () => {
 });
 
 document.getElementById('startBtn').addEventListener('click', () => {
-    if (session) {
+    if (currentSession) {
         loadMedia(videoList[currentVideoIndex]);
     } else {
         alert('Connectez-vous sur chromecast en premier');
@@ -29,7 +29,7 @@ document.getElementById('startBtn').addEventListener('click', () => {
 });
 
 document.getElementById('nextBtn').addEventListener('click', () => {
-    if (session) {
+    if (currentSession) {
         currentVideoIndex = (currentVideoIndex + 1) % videoList.length;
         loadMedia(videoList[currentVideoIndex]);
     } else {
@@ -38,11 +38,11 @@ document.getElementById('nextBtn').addEventListener('click', () => {
 });
 
 document.getElementById('playBtn').addEventListener('click', () => {
-    if (media) {
+    if (currentMediaSession) {
         if (isPlaying) {
-            media.pause(null, onMediaCommandSuccess, onError);
+            currentMediaSession.pause(null, onMediaCommandSuccess, onError);
         } else {
-            media.play(null, onMediaCommandSuccess, onError);
+            currentMediaSession.play(null, onMediaCommandSuccess, onError);
         }
         isPlaying = !isPlaying;
     }
@@ -50,7 +50,7 @@ document.getElementById('playBtn').addEventListener('click', () => {
 
 
 function sessionListener(newSession) {
-    session = newSession;
+    currentSession = newSession;
     document.getElementById('startBtn').style.display = 'block';
     document.getElementById('nextBtn').style.display = 'block';
 }
@@ -58,7 +58,7 @@ function sessionListener(newSession) {
 
 
 function initializeSeekSlider(remotePlayerController, mediaSession) {
-    media = mediaSession;
+    currentMediaSession = mediaSession;
     document.getElementById('playBtn').style.display = 'block';
    // Set max value of seek slider to media duration in seconds
    seekSlider.max = mediaSession.media.duration;
@@ -106,7 +106,6 @@ function initializeApiOnly() {
     const apiConfig = new chrome.cast.ApiConfig(sessionRequest, sessionListener, receiverListener);
 
     chrome.cast.initialize(apiConfig, onInitSuccess, onError);
-    initializeCastApi();
 }
 
 function loadMedia(videoUrl) {
@@ -116,7 +115,7 @@ function loadMedia(videoUrl) {
     const remotePlayer = new cast.framework.RemotePlayer();
     const remotePlayerController = new cast.framework.RemotePlayerController(remotePlayer);
 
-    session.loadMedia(request, mediaSession => {
+    currentSession.loadMedia(request, mediaSession => {
         console.log('Media chargé avec succès');
         initializeSeekSlider(remotePlayerController, mediaSession);
       }, onError);
@@ -126,9 +125,4 @@ function formatTime(timeInSeconds) {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = Math.floor(timeInSeconds % 60);
     return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-}
-
-
-// Function to initialize the Cast SDK
-function initializeCastApi() {    
 }
