@@ -3,6 +3,9 @@ let media;
 let isPlaying = true;
 let currentVideoIndex = 0;
 let currentVideoUrl;
+const seekSlider = document.getElementById('seekSlider');
+const currentTimeElement = document.getElementById('currentTime');
+const totalTimeElement = document.getElementById('totalTime');
 const defaultContentType = 'video/mp4';
 const applicationID = '3DDC41A0';
 const videoList = [
@@ -15,11 +18,6 @@ const videoList = [
 document.getElementById('connectButton').addEventListener('click', () => {
     initializeApiOnly();
 });
-
-document.getElementById('timeSlider').addEventListener('change', () => {
-    seekTimeMedia();
-});
-
 
 document.getElementById('startBtn').addEventListener('click', () => {
     if (session) {
@@ -58,10 +56,30 @@ function sessionListener(newSession) {
 
 
 
-function onMediaDiscovered(mediaItem) {
+function initializeSeekSlider(remotePlayerController, mediaItem) {
     media = mediaItem;
     document.getElementById('playBtn').style.display = 'block';
-}
+   // Set max value of seek slider to media duration in seconds
+   seekSlider.max = mediaSession.media.duration;
+
+   // Update seek slider and time elements on time update
+   mediaSession.addUpdateListener(isAlive => {
+     if (isAlive) {
+       const currentTime = mediaSession.getEstimatedTime();
+       const totalTime = mediaSession.media.duration;
+
+       seekSlider.value = currentTime;
+       currentTimeElement.textContent = formatTime(currentTime);
+       totalTimeElement.textContent = formatTime(totalTime);
+     }
+   });
+
+   // Handle seek slider change
+   seekSlider.addEventListener('input', () => {
+     const seekTime = parseFloat(seekSlider.value);
+     remotePlayerController.seek(seekTime);
+   });
+ }
 
 function receiverListener(availability) {
     if (availability === chrome.cast.ReceiverAvailability.AVAILABLE) {
@@ -96,71 +114,21 @@ function loadMedia(videoUrl) {
     currentVideoUrl = videoUrl;
     const mediaInfo = new chrome.cast.media.MediaInfo(videoUrl, defaultContentType);
     const request = new chrome.cast.media.LoadRequest(mediaInfo);
+    const remotePlayerController = new chrome.cast.media.RemotePlayerController();
 
-    session.loadMedia(request, onMediaDiscovered, onError);
+    session.loadMedia(request, mediaSession => {
+        console.log('Media chargé avec succès');
+        initializeSeekSlider(remotePlayerController, mediaSession);
+      }, onError);
 }
 
-// Fonction pour mettre à jour le curseur de temps
-function updateSeekSlider() {
-    var timeSlider = document.getElementById('timeSlider');
-    var remotePlayer = new cast.framework.RemotePlayer();
-    var position = remotePlayer.currentTime;
-    var duration = remotePlayer.duration;
-
-    // Mettez à jour la position du curseur de recherche en fonction de la position actuelle et de la durée totale
-    if (duration > 0) {
-        timeSlider.value = (position / duration) * 100;
-    } else {
-        timeSlider.value = 0;
-    }
-}
-
-function seekTimeMedia() {
-    var timeSlider = document.getElementById('timeSlider');
-    var seekValue = parseFloat(timeSlider.value);
-
-    var remotePlayer = new cast.framework.RemotePlayer();
-    var remotePlayerController = new cast.framework.RemotePlayerController(remotePlayer);
-
-    var position = (seekValue / 100) * remotePlayer.duration;
-
-    // Utilisez le contrôleur pour rechercher à la position spécifiée
-    remotePlayerController.seek(position);
+function formatTime(timeInSeconds) {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = Math.floor(timeInSeconds % 60);
+    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 }
 
 
 // Function to initialize the Cast SDK
-function initializeCastApi() {
-
-    var remotePlayer = new cast.framework.RemotePlayer();
-    var remotePlayerController = new cast.framework.RemotePlayerController(remotePlayer);
-
-    remotePlayerController.addEventListener(
-        cast.framework.RemotePlayerEventType.SEEK,
-        (event) => {
-          // Handle seek event
-          const seekTimeInSeconds = event.value;
-          console.log('Seeking to:', seekTimeInSeconds, 'seconds');
-        }
-      );
-
-    
-    // Ajouter les évéments ici pour le curseur par exemple.
-    remotePlayerController.addEventListener(
-        cast.framework.RemotePlayerEventType.IS_PAUSED_CHANGED,
-        function(event) {
-          if (!event.value) {
-            updateSeekSlider();
-          }
-        }
-      );
-
-      remotePlayerController.addEventListener(
-        cast.framework.RemotePlayerEventType.CURRENT_TIME_CHANGED,
-        function(event) {
-          if (!event.value) {
-            updateSeekSlider();
-          }
-        }
-      );      
+function initializeCastApi() {    
 }
