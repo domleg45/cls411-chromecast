@@ -3,6 +3,7 @@ let media;
 let isPlaying = true;
 let currentVideoIndex = 0;
 let currentVideoUrl;
+let remotePlayerController;
 const seekSlider = document.getElementById('seekSlider');
 const currentTimeElement = document.getElementById('currentTime');
 const totalTimeElement = document.getElementById('totalTime');
@@ -114,7 +115,8 @@ function loadMedia(videoUrl) {
     currentVideoUrl = videoUrl;
     const mediaInfo = new chrome.cast.media.MediaInfo(videoUrl, defaultContentType);
     const request = new chrome.cast.media.LoadRequest(mediaInfo);
-    const remotePlayerController = new chrome.cast.media.RemotePlayerController();
+    const remotePlayer = new cast.framework.RemotePlayer()
+    remotePlayerController = new cast.framework.RemotePlayerController(remotePlayer)
 
     session.loadMedia(request, mediaSession => {
         console.log('Media chargé avec succès');
