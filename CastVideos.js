@@ -4,11 +4,12 @@ let isPlaying = true;
 let currentVideoIndex = 0;
 let currentVideoUrl;
 let updateInterval;
+let lastVolumeLevel = 1;
 const seekSlider = document.getElementById('seekSlider');
+const muteToggle = document.getElementById('muteToggle');
 const currentTimeElement = document.getElementById('currentTime');
 const totalTimeElement = document.getElementById('totalTime');
 const defaultContentType = 'video/mp4';
-const applicationID = '3DDC41A0';
 const videoList = [
     'https://transfertco.ca/video/DBillPrelude.mp4',
     'https://transfertco.ca/video/DBillSpotted.mp4',
@@ -22,7 +23,13 @@ document.getElementById('connectButton').addEventListener('click', () => {
 
 document.getElementById('startBtn').addEventListener('click', () => {
     if (currentSession) {
-        loadMedia(videoList[currentVideoIndex]);
+        if(localStorage.getItem('currentVideoIndexLS')) {
+            loadMedia(videoList[localStorage.getItem('currentVideoIndexLS')]);
+        } else {
+            loadMedia(videoList[currentVideoIndex]);
+        }
+        
+       
     } else {
         alert('Connectez-vous sur chromecast en premier');
     }
@@ -31,6 +38,17 @@ document.getElementById('startBtn').addEventListener('click', () => {
 document.getElementById('nextBtn').addEventListener('click', () => {
     if (currentSession) {
         currentVideoIndex = (currentVideoIndex + 1) % videoList.length;
+        localStorage.setItem('currentVideoIndexLS', currentVideoIndex);
+        loadMedia(videoList[currentVideoIndex]);
+    } else {
+        alert('Connectez-vous sur chromecast en premier');
+    }
+});
+
+document.getElementById('previousBtn').addEventListener('click', () => {
+    if (currentSession) {
+        currentVideoIndex = (currentVideoIndex - 1) % videoList.length;
+        localStorage.setItem('currentVideoIndexLS', currentVideoIndex);
         loadMedia(videoList[currentVideoIndex]);
     } else {
         alert('Connectez-vous sur chromecast en premier');
@@ -53,8 +71,29 @@ function sessionListener(newSession) {
     currentSession = newSession;
     document.getElementById('startBtn').style.display = 'block';
     document.getElementById('nextBtn').style.display = 'block';
+    document.getElementById('previousBtn').style.display = 'block';
 }
 
+
+function initializeMuted(remotePlayerController, remotePlayer, mediaSession) {
+    //Ajout listener + boutton
+    muteToggle.addEventListener('click', () => {
+        if (currentMediaSession.volume.muted) {
+            // Unmute
+            const volume = new chrome.cast.Volume(lastVolumeLevel, false);
+            const volumeRequest = new chrome.cast.media.VolumeRequest(volume);
+            currentMediaSession.setVolume(volumeRequest, onMediaCommandSuccess, onError);
+        } else {
+            
+            
+            lastVolumeLevel = currentMediaSession.volume.level;
+            // Mute
+            const volume = new chrome.cast.Volume(0, true);
+            const volumeRequest = new chrome.cast.media.VolumeRequest(volume);
+            currentMediaSession.setVolume(volumeRequest, onMediaCommandSuccess, onError);
+        }
+    });
+}
 
 
 function initializeSeekSlider(remotePlayerController, mediaSession) {
@@ -102,7 +141,7 @@ function onMediaCommandSuccess() {
 
 function initializeApiOnly() {
     
-    const sessionRequest = new chrome.cast.SessionRequest(applicationID);
+    const sessionRequest = new chrome.cast.SessionRequest(chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID);
     const apiConfig = new chrome.cast.ApiConfig(sessionRequest, sessionListener, receiverListener);
 
     chrome.cast.initialize(apiConfig, onInitSuccess, onError);
@@ -118,6 +157,7 @@ function loadMedia(videoUrl) {
     currentSession.loadMedia(request, mediaSession => {
         console.log('Media chargé avec succès');
         initializeSeekSlider(remotePlayerController, mediaSession);
+        initializeMuted(remotePlayerController, remotePlayer, mediaSession);
       }, onError);
 }
 
