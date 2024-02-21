@@ -139,7 +139,6 @@ function onMediaCommandSuccess() {
 }
 
 function initializeApiOnly() {
-    
     const sessionRequest = new chrome.cast.SessionRequest(chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID);
     const apiConfig = new chrome.cast.ApiConfig(sessionRequest, sessionListener, receiverListener);
 
