@@ -5,10 +5,7 @@ let currentVideoIndex = 0;
 let currentVideoUrl;
 let updateInterval;
 let lastVolumeLevel = 1;
-const seekSlider = document.getElementById('seekSlider');
 const muteToggle = document.getElementById('muteToggle');
-const currentTimeElement = document.getElementById('currentTime');
-const totalTimeElement = document.getElementById('totalTime');
 const defaultContentType = 'video/mp4';
 const videoList = [
     'https://transfertco.ca/video/DBillPrelude.mp4',
@@ -95,27 +92,9 @@ function initializeMuted(remotePlayerController, remotePlayer, mediaSession) {
 }
 
 
-function initializeSeekSlider(remotePlayerController, mediaSession) {
+function initializeMediaSession(mediaSession) {
     currentMediaSession = mediaSession;
     document.getElementById('playBtn').style.display = 'block';
-   // Set max value of seek slider to media duration in seconds
-   seekSlider.max = mediaSession.media.duration;
-
-    // Update seek slider and time elements on time update
-    updateInterval = setInterval(() => {
-        const currentTime = mediaSession.getEstimatedTime();
-        const totalTime = mediaSession.media.duration;
-  
-        seekSlider.value = currentTime;
-        currentTimeElement.textContent = formatTime(currentTime);
-        totalTimeElement.textContent = formatTime(totalTime);
-      }, 1000); //chaque 1000 ms... 1 sec
-  
-      // slider change
-      seekSlider.addEventListener('input', () => {
-        const seekTime = parseFloat(seekSlider.value);
-        remotePlayerController.seek(seekTime);
-      });
  }
 
 function receiverListener(availability) {
@@ -149,13 +128,11 @@ function loadMedia(videoUrl) {
     currentVideoUrl = videoUrl;
     const mediaInfo = new chrome.cast.media.MediaInfo(videoUrl, defaultContentType);
     const request = new chrome.cast.media.LoadRequest(mediaInfo);
-    const remotePlayer = new cast.framework.RemotePlayer();
-    const remotePlayerController = new cast.framework.RemotePlayerController(remotePlayer);
 
     currentSession.loadMedia(request, mediaSession => {
         console.log('Media chargé avec succès');
-        initializeSeekSlider(remotePlayerController, mediaSession);
-        initializeMuted(remotePlayerController, remotePlayer, mediaSession);
+        initializeMediaSession(mediaSession);
+        initializeMuted(mediaSession);
       }, onError);
 }
 
