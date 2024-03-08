@@ -1,6 +1,6 @@
 // Ajoutez le gestionnaire d'événements au récepteur
 const context = cast.framework.CastReceiverContext.getInstance();
-context.addCustomMessageListener('urn:x-cast:mvlab', cast.framework.system.EventType.MESSAGE, messageListener);
+context.addCustomMessageListener('urn:x-cast:com.transfertco.cast', cast.framework.system.EventType.MESSAGE, messageListener);
 
 messageBus = receiverManager.getCastMessageBus(namespace, function(customEvent) {
 	if(customEvent.data.type == "message"){
