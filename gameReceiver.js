@@ -9,5 +9,6 @@ messageBus.onMessage = function(event) {
   var sender = event.senderId;
   var message = event.data;
   var s = document.getElementById("test");
-  s.value = message;
+  s.innerHTML = message;
+  alert(message);
 };
