@@ -1,6 +1,6 @@
 const messageListener = (event) => {
     const message = event.data;
-    if (message.type === 'customMessageType') {
+    if (message.type === 'command') {
       // Gérez un type de message personnalisé
       const customData = message.customData;
       console.log('Message personnalisé reçu :', customData);
