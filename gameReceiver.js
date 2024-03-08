@@ -1,15 +1,13 @@
-const messageListener = (event) => {
-    const message = event.data;
-    //if (message.type === 'command') {
-      // Gérez un type de message personnalisé
-      const customData = message.customData;
-      console.log('Message personnalisé reçu :', customData);
-      var s = document.getElementById("test");
-      s.value = customData;
-	  alert(customData);
-    //}
-  };
-  
-  // Ajoutez le gestionnaire d'événements au récepteur
-  const receiverManager = cast.framework.CastReceiverContext.getInstance().getCastReceiverManager();
-  receiverManager.addEventListener(cast.framework.system.EventType.MESSAGE, messageListener);
+ 
+// Ajoutez le gestionnaire d'événements au récepteur
+const receiverManager = cast.framework.CastReceiverContext.getInstance().getCastReceiverManager();
+receiverManager.addEventListener(cast.framework.system.EventType.MESSAGE, messageListener);
+
+messageBus = receiverManager.getCastMessageBus('edu.mv.action', cast.receiver.CastMessageBus.MessageType.JSON);
+
+messageBus.onMessage = function(event) {
+  var sender = event.senderId;
+  var message = event.data;
+  var s = document.getElementById("test");
+  s.value = message;
+};
