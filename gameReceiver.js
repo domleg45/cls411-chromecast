@@ -14,6 +14,18 @@ playerManager.addEventListener(
 	s.innerHTML = message;
    
 });
+playerManager.setMessageInterceptor(namespace, handleCustomMessage);
+
+function handleCustomMessage(namespace, message) {
+  // Handle your custom messages here
+  console.log(`Received message on namespace ${namespace}:`, message);
+
+  // You can send a response back if needed
+  // playerManager.sendCustomMessage(namespace, { response: 'Received your message!' });
+
+  return true;
+}
+
 
 // Start the receiver
 context.start();
