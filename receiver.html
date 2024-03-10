@@ -3,23 +3,7 @@
 </head>
 <body>
  <h1 style="color:white" id="test">Valeur position ICI -v4</h1>
-   <script >
-		const context = cast.framework.CastReceiverContext.getInstance();
-
-
-		messageBus = receiverManager.getCastMessageBus(namespace, function(customEvent) {
-			if(customEvent.data.type == "message"){
-				  var sender = customEvent.senderId;
-				  var message = customEvent.data.value;
-				  var s = document.getElementById("test");
-				  s.innerHTML = message;
-				  alert(message);		
-			}
-		};
-
-		context.addCustomMessageListener('urn:x-cast:com.transfertco.cast', cast.framework.system.EventType.MESSAGE, messageListener);
-		context.start();
-   </script>
+   <script src="gameReceiver.js" type="module"></script>
    <script type="text/javascript" src="https://www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>   
 </body>
 </html>

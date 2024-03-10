@@ -1,16 +1,22 @@
 // Ajoutez le gestionnaire d'événements au récepteur
-const context = cast.framework.CastReceiverContext.getInstance();
+  cast.framework.CastReceiverContext.getInstance().setLoggerLevel(cast.framework.LoggerLevel.DEBUG);
 
+  const context = cast.framework.CastReceiverContext.getInstance();
+  const playerManager = context.getPlayerManager();
 
-messageBus = receiverManager.getCastMessageBus(namespace, function(customEvent) {
-	if(customEvent.data.type == "message"){
-		  var sender = customEvent.senderId;
-		  var message = customEvent.data.value;
-		  var s = document.getElementById("test");
-		  s.innerHTML = message;
-		  alert(message);		
-	}
-};
+  const namespace = 'urn:x-cast:com.transfertco.cast';
 
-context.addCustomMessageListener('urn:x-cast:com.transfertco.cast', cast.framework.system.EventType.MESSAGE, messageListener);
-context.start();
+  playerManager.setMessageInterceptor(namespace, handleMessage);
+
+  function handleMessage(namespace, message) {
+    console.log(`Received message on namespace ${namespace}:`, message);
+	
+	var s = document.getElementById("test");
+	s.innerHTML = message;
+    // You can send a response back if needed
+    // playerManager.sendCustomMessage(namespace, { response: 'Received your message!' });
+    return true;
+  }
+
+  // Start the receiver
+  context.start();
