@@ -1,14 +1,26 @@
-  const CHANNEL = 'urn:x-cast:testChannel';
-  const ctx = cast.framework.CastReceiverContext.getInstance();
+const context = cast.framework.CastReceiverContext.getInstance();
 
-	const options = new cast.framework.CastReceiverOptions();
+const CHANNEL = 'urn:x-cast:testChannel';
 
-	options.disableIdleTimeout = true;
+context.addCustomMessageListener(CHANNEL, function(customEvent) {
+    var eventData = customEvent.data;
+    parseCommand(eventData);
+    idleTime = 0;
+});
 
-    ctx.addCustomMessageListener(CHANNEL, customEvent =>
-	  //document.getElementById("test").innerHTML = customEvent;
-    );
+const options = new cast.framework.CastReceiverOptions();
 
-	ctx.start(options);
+options.disableIdleTimeout = true;
+
+context.start(options);
+
+var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
+
+function timerIncrement() {
+    idleTime = idleTime + 1;
+    if (idleTime > 4) { // 5 minutes
+        context.stop();
+    }
+}
 	
 	
