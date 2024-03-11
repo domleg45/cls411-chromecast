@@ -10,7 +10,7 @@
 //		document.getElementById("test").innerHTML = customEvent.data.msg);
 
 	const options = new cast.framework.CastReceiverOptions();
-	options.customNamespaces = { 'urn:x-cast:testChannel': 'STRING' }
+	options.customNamespaces = { 'urn:x-cast:com.transfertco.cast1': 'STRING' }
 
 	options.disableIdleTimeout = true;
 
