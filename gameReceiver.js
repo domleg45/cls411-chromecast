@@ -2,8 +2,6 @@
   const ctx = cast.framework.CastReceiverContext.getInstance();
 
 	const options = new cast.framework.CastReceiverOptions();
-	options.customNamespaces = Object.assign({});
-	//options.customNamespaces[CHANNEL] = 'JSON';
 
 	options.disableIdleTimeout = true;
 
