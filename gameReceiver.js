@@ -1,14 +1,21 @@
-// Ajoutez le gestionnaire d'événements au récepteur
-cast.framework.CastReceiverContext.getInstance().setLoggerLevel(cast.framework.LoggerLevel.DEBUG);
+  const namespace = 'urn:x-cast:com.transfertco.cast1';
+  const ctx = cast.framework.CastReceiverContext.getInstance();
+  const options = new cast.framework.CastReceiverOptions();
+  const objToSender = 
+  {
+    type: 'status',
+    message: 'Playing'
+  };
 
-const context = cast.framework.CastReceiverContext.getInstance();
-const playerManager = context.getPlayerManager();
+  options.customNamespaces = Object.assign({});
+  options.customNamespaces[namespace] = cast.framework.system.MessageType.JSON;
 
-const namespace = 'urn:x-cast:com.transfertco.cast1';
+  //receiving sender message
+  ctx.addCustomMessageListener(namespace,  
+	customEvent => 
+		document.getElementById("test").innerHTML = customEvent.data.msg);
 
-castSession.addMessageListener(namespace, (namespace, message) => {
-  console.log(namespace, message);
-});
+  //message to sender app
+  ctx.sendCustomMessage(namespace, objToSender);
 
-// Start the receiver
-context.start();
+  ctx.start(options);
