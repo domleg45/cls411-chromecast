@@ -4,7 +4,8 @@ cast.framework.CastReceiverContext.getInstance().setLoggerLevel(cast.framework.L
 const context = cast.framework.CastReceiverContext.getInstance();
 const playerManager = context.getPlayerManager();
 
-const namespace = 'urn:x-cast:com.transfertco.cast';
+const namespace = 'urn:x-cast:com.transfertco.cast1';
+const namespace = 'urn:x-cast:com.transfertco.cast2';
 
 playerManager.addEventListener(
   cast.framework.events.EventType.ALL, (event) => {
@@ -14,6 +15,22 @@ playerManager.addEventListener(
 	s.innerHTML = message;
    
 });
+
+
+  playerManager.setMessageInterceptor(CHANNEL_ONE_NAMESPACE, handleChannelOneMessage);
+  playerManager.setMessageInterceptor(CHANNEL_TWO_NAMESPACE, handleChannelTwoMessage);
+
+  function handleChannelOneMessage(namespace, message) {
+    console.log(`Received message on channel one:`, message);
+    // Handle channel one messages
+    return true;
+  }
+
+  function handleChannelTwoMessage(namespace, message) {
+    console.log(`Received message on channel two:`, message);
+    // Handle channel two messages
+    return true;
+  }
 
 // Start the receiver
 context.start();
