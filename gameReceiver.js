@@ -4,10 +4,7 @@
   
 
   
-  //receiving sender message
-  ctx.addCustomMessageListener(namespace1, function(customEvent) {
-	//document.getElementById("test").innerHTML = customEvent;
-});
+
 
 	
 	
@@ -19,4 +16,11 @@
 
 	options.disableIdleTimeout = true;
 
+  //receiving sender message
+  ctx.addCustomMessageListener('urn:x-cast:com.transfertco.cast1', function(customEvent) {
+	//document.getElementById("test").innerHTML = customEvent;
+});
+
 	ctx.start(options);
+	
+	
