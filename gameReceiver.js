@@ -6,9 +6,9 @@
 
 	options.disableIdleTimeout = true;
 
-    ctx.addCustomMessageListener(CHANNEL, function(customEvent) {
+    ctx.addCustomMessageListener(CHANNEL, customEvent =>
 	  //document.getElementById("test").innerHTML = customEvent;
-    });
+    );
 
 	ctx.start(options);
 	
