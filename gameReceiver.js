@@ -10,9 +10,9 @@
 //		document.getElementById("test").innerHTML = customEvent.data.msg);
 
 	const options = new cast.framework.CastReceiverOptions();
-	//options.customNamespaces = {
-	//	namespace1: cast.framework.system.MessageType.JSON
-	//};
+	options.customNamespaces = {
+		namespace1: cast.framework.system.MessageType.JSON
+	};
 
 	options.disableIdleTimeout = true;
 
