@@ -1,8 +1,9 @@
-  const CHANNEL = 'urn:x-cast:com.transfertco.cast1';
+  const CHANNEL = 'urn:x-cast:testChannel';
   const ctx = cast.framework.CastReceiverContext.getInstance();
 
 	const options = new cast.framework.CastReceiverOptions();
-	options.customNamespaces = { CHANNEL: 'STRING' }
+	options.customNamespaces = Object.assign({});
+	options.customNamespaces[CHANNEL] = cast.framework.system.MessageType.JSON;
 
 	options.disableIdleTimeout = true;
 
