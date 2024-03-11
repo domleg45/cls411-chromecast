@@ -20,6 +20,11 @@ context.addEventListener(cast.framework.system.EventType.READY, () => {
   }
 });
 
+castDebugLogger.loggerLevelByEvents = {
+  'cast.framework.events.category.CORE': cast.framework.LoggerLevel.INFO,
+  'cast.framework.events.EventType.MEDIA_STATUS': cast.framework.LoggerLevel.DEBUG
+}
+
 const options = new cast.framework.CastReceiverOptions();
 
 options.disableIdleTimeout = true;
