@@ -3,7 +3,7 @@
 
 	const options = new cast.framework.CastReceiverOptions();
 	options.customNamespaces = Object.assign({});
-	options.customNamespaces[CHANNEL] = 'STRING';
+	//options.customNamespaces[CHANNEL] = 'JSON';
 
 	options.disableIdleTimeout = true;
 
