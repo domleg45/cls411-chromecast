@@ -10,9 +10,7 @@
 //		document.getElementById("test").innerHTML = customEvent.data.msg);
 
 	const options = new cast.framework.CastReceiverOptions();
-	options.customNamespaces = {
-		namespace1: cast.framework.system.MessageType.JSON
-	};
+	options.customNamespaces = { 'urn:x-cast:testChannel': 'STRING' }
 
 	options.disableIdleTimeout = true;
 
