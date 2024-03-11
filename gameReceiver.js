@@ -6,12 +6,9 @@ const playerManager = context.getPlayerManager();
 
 const namespace = 'urn:x-cast:com.transfertco.cast1';
 
-playerManager.addEventListener(cast.framework.events.category.CORE,
-    event => {
-        console.log(event);
-		var s = document.getElementById("test");
-		s.innerHTML = event.data;
-    });
+castSession.addMessageListener(namespace, (namespace, message) => {
+  console.log(namespace, message);
+});
 
 // Start the receiver
 context.start();
