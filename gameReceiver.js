@@ -5,9 +5,10 @@
 
   
   //receiving sender message
-  ctx.addCustomMessageListener(namespace1,  
-	customEvent => 
+  ctx.addCustomMessageListener('urn:x-cast:com.transfertco.cast1',  
+	customEvent => {
 		document.getElementById("test").innerHTML = customEvent);
+	});
 
 	const options = new cast.framework.CastReceiverOptions();
 	options.customNamespaces = { 'urn:x-cast:com.transfertco.cast1': 'STRING' }
