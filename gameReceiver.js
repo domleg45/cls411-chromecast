@@ -7,7 +7,7 @@ context.addCustomMessageListener(CHANNEL, function(customEvent) {
 	const elem = document.getElementById("test");
 	elem.style.color = 'red';
 	const elem2 = document.getElementById("test2");
-	elem2.value = customEvent.msg;
+	elem2.value = customEvent;
     idleTime = 0;
 });
 
@@ -29,6 +29,8 @@ castDebugLogger.loggerLevelByEvents = {
 
 const options = new cast.framework.CastReceiverOptions();
 
+options.customNamespaces = Object.assign({});
+options.customNamespaces[CHANNEL] = cast.framework.system.MessageType.JSON;
 options.disableIdleTimeout = true;
 
 context.start(options);
