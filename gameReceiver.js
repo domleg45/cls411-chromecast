@@ -3,11 +3,11 @@ const context = cast.framework.CastReceiverContext.getInstance();
 
 const CHANNEL = 'urn:x-cast:testChannel';
 
-//context.addCustomMessageListener(CHANNEL, function(customEvent) {
-//   var eventData = customEvent.data;
-//    parseCommand(eventData);
-//    idleTime = 0;
-//});
+context.addCustomMessageListener(CHANNEL, function(customEvent) {
+   var eventData = customEvent.data;
+    parseCommand(eventData);
+    idleTime = 0;
+});
 
 context.addEventListener(cast.framework.system.EventType.READY, () => {
   if (!castDebugLogger.debugOverlayElement_) {
