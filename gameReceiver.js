@@ -4,8 +4,8 @@ const context = cast.framework.CastReceiverContext.getInstance();
 const CHANNEL = 'urn:x-cast:testChannel';
 
 context.addCustomMessageListener(CHANNEL, function(customEvent) {
-    //var eventData = customEvent.data;
-    alert('yes!');
+	const elem = document.getElementById("test");
+	elem.style.color = 'red';
     idleTime = 0;
 });
 
