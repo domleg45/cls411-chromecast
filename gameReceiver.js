@@ -5,7 +5,7 @@ const CHANNEL = 'urn:x-cast:testChannel';
 
 context.addCustomMessageListener(CHANNEL, function(customEvent) {
     //var eventData = customEvent.data;
-    document.getElementById('test').innerHTML = 'yes!';
+    alert('yes!');
     idleTime = 0;
 });
 
