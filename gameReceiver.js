@@ -7,7 +7,7 @@ context.addCustomMessageListener(CHANNEL, function(customEvent) {
 	const elem = document.getElementById("test");
 	elem.style.color = 'red';
 	const elem2 = document.getElementById("test2");
-	elem2.value = customEvent;
+	elem2.innerHTML  = customEvent.data.msg;
     idleTime = 0;
 });
 
