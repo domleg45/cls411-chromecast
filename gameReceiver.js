@@ -6,7 +6,8 @@ const CHANNEL = 'urn:x-cast:testChannel';
 context.addCustomMessageListener(CHANNEL, function(customEvent) {
 	const elem = document.getElementById("test");
 	elem.style.color = 'red';
-	elem.value = customEvent.data.msg;
+	const elem2 = document.getElementById("test2");
+	elem2.value = customEvent.msg;
     idleTime = 0;
 });
 
