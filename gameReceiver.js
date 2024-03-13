@@ -10,9 +10,10 @@ const CHANNEL = 'urn:x-cast:testChannel';
 context.addCustomMessageListener(CHANNEL, function(customEvent) {
 	const pos = customEvent.data.msg.split(',');
 	bunny.x = pos[0];
-	elem2.innerHTML = pos[0];
 	bunny.y = pos[1];
+	document.getElementById('test').innerHTML = pos[1];
     idleTime = 0;
+	
 });
 
 context.addEventListener(cast.framework.system.EventType.READY, () => {
