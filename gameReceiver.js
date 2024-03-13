@@ -1,7 +1,36 @@
+import { Application, Assets, Sprite } from 'pixi.js';
+
 const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
 const context = cast.framework.CastReceiverContext.getInstance();
 
 const CHANNEL = 'urn:x-cast:testChannel';
+
+let x;
+let y;
+
+// Asynchronous IIFE
+(async () =>
+{
+    // Create a PixiJS application.
+    const app = new Application();
+
+    // Intialize the application.
+    await app.init({ background: '#1099bb', resizeTo: window });
+    
+    const texture = await Assets.load('https://pixijs.com/assets/bunny.png');
+    const bunny = new Sprite(texture);
+    app.stage.addChild(bunny);
+    bunny.anchor.set(0.5);
+
+    bunny.x = app.screen.width / 2
+    bunny.y = app.screen.height / 2 
+
+    // Then adding the application's canvas to the DOM body.
+    document.body.appendChild(app.canvas);
+})();
+
+
+
 
 context.addCustomMessageListener(CHANNEL, function(customEvent) {
 	const elem = document.getElementById("test");
