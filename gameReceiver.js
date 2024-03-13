@@ -11,10 +11,11 @@ context.addCustomMessageListener(CHANNEL, function(customEvent) {
 	const elem = document.getElementById("test");
 	elem.style.color = 'red';
 	const elem2 = document.getElementById("test2");
-	elem2.innerHTML  = customEvent.data.msg;
+	
 	const pos = customEvent.data.msg.split(',');
-	bunny.x = bunny.x + pos[0];
-	bunny.y = bunny.y + pos[1];
+	bunny.x = pos[0];
+	elem2.innerHTML = pos[0];
+	bunny.y = pos[1];
     idleTime = 0;
 });
 
