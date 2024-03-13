@@ -46,19 +46,19 @@ function timerIncrement() {
 
 
 // Create a PixiJS application.
-// var app = new PIXI.Application({ width: 800, height: 600, backgroundColor: 0x1099bb });
-// document.getElementById('pixi-container').appendChild(app.view);
+ var app = new PIXI.Application({ width: 800, height: 600, backgroundColor: 0x1099bb });
+ document.getElementById('pixi-container').appendChild(app.view);
 
-// const texture = await PIXI.Assets.load('https://pixijs.com/assets/bunny.png');
+ const texture = await PIXI.Assets.load('https://pixijs.com/assets/bunny.png');
 
-// const bunny = PIXI.Sprite.from(texture);
+ const bunny = PIXI.Sprite.from(texture);
 
-// app.stage.addChild(bunny);
+ app.stage.addChild(bunny);
 
-// bunny.anchor.set(0.5);
+ bunny.anchor.set(0.5);
 
 // Move the sprite to the center of the screen.
-// bunny.x = app.screen.width / 2;
-// bunny.y = app.screen.height / 2;	
+ bunny.x = app.screen.width / 2;
+ bunny.y = app.screen.height / 2;	
 
 	
