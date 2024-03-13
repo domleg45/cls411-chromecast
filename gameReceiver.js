@@ -1,5 +1,3 @@
-import { Application, Assets, Sprite } from 'pixi.js';
-
 const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
 const context = cast.framework.CastReceiverContext.getInstance();
 
