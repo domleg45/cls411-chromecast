@@ -3,11 +3,18 @@ const context = cast.framework.CastReceiverContext.getInstance();
 
 const CHANNEL = 'urn:x-cast:testChannel';
 
+ const texture = await PIXI.Assets.load('https://pixijs.com/assets/bunny.png');
+
+ const bunny = PIXI.Sprite.from(texture);
+
 context.addCustomMessageListener(CHANNEL, function(customEvent) {
 	const elem = document.getElementById("test");
 	elem.style.color = 'red';
 	const elem2 = document.getElementById("test2");
 	elem2.innerHTML  = customEvent.data.msg;
+	const pos = customEvent.data.msg.split(',');
+	bunny.x = bunny.x + pos[0];
+	bunny.y = bunny.y + pos[1];
     idleTime = 0;
 });
 
@@ -49,9 +56,7 @@ function timerIncrement() {
  var app = new PIXI.Application({ width: 800, height: 600, backgroundColor: 0x1099bb });
  document.getElementById('pixi-container').appendChild(app.view);
 
- const texture = await PIXI.Assets.load('https://pixijs.com/assets/bunny.png');
 
- const bunny = PIXI.Sprite.from(texture);
 
  app.stage.addChild(bunny);
 
