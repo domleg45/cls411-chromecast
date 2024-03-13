@@ -8,10 +8,6 @@ const CHANNEL = 'urn:x-cast:testChannel';
  const bunny = PIXI.Sprite.from(texture);
 
 context.addCustomMessageListener(CHANNEL, function(customEvent) {
-	const elem = document.getElementById("test");
-	elem.style.color = 'red';
-	const elem2 = document.getElementById("test2");
-	
 	const pos = customEvent.data.msg.split(',');
 	bunny.x = pos[0];
 	elem2.innerHTML = pos[0];
@@ -54,10 +50,8 @@ function timerIncrement() {
 
 
 // Create a PixiJS application.
- var app = new PIXI.Application({ width: 800, height: 600, backgroundColor: 0x1099bb });
+ var app = new PIXI.Application({ width: 1080, height: 720, backgroundColor: 0x1099bb });
  document.getElementById('pixi-container').appendChild(app.view);
-
-
 
  app.stage.addChild(bunny);
 
