@@ -3,8 +3,8 @@ const context = cast.framework.CastReceiverContext.getInstance();
 
 const CHANNEL = 'urn:x-cast:testChannel';
 
- const texturePlayer = await PIXI.Assets.load('https://transfertco.ca/lab/cls411-chromecast/img/seagal.png');
- const textureBurger = await PIXI.Assets.load('https://transfertco.ca/lab/cls411-chromecast/img/burger.png');
+ const texturePlayer = await PIXI.Assets.load('./img/seagal.png');
+ const textureBurger = await PIXI.Assets.load('./img/burger.png');
 
  const player = PIXI.Sprite.from(texturePlayer);
  const burger = PIXI.Sprite.from(textureBurger);
