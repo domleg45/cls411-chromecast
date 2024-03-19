@@ -63,7 +63,7 @@ function timerIncrement() {
 
  player.x = app.screen.width / 2;
  player.y = app.screen.height / 2;	
- burger.x = app.screen.width / 4;
- burger.y = app.screen.height / 4;	
+ burger.x = 44;
+ burger.y = 55;	
 
 	
