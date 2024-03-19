@@ -3,15 +3,17 @@ const context = cast.framework.CastReceiverContext.getInstance();
 
 const CHANNEL = 'urn:x-cast:testChannel';
 
- const texture = await PIXI.Assets.load('https://pixijs.com/assets/bunny.png');
+ const texturePlayer = await PIXI.Assets.load('https://transfertco.ca/lab/cls411-chromecast/img/seagal.png');
+ const textureBurger = await PIXI.Assets.load('https://transfertco.ca/lab/cls411-chromecast/img/burger.png');
 
- const bunny = PIXI.Sprite.from(texture);
+ const player = PIXI.Sprite.from(texturePlayer);
+ const burger = PIXI.Sprite.from(textureBurger);
 
 context.addCustomMessageListener(CHANNEL, function(customEvent) {
 	const pos = customEvent.data.msg.split(',');
-	bunny.x = pos[0];
-	bunny.y = pos[1];
-    idleTime = 0;
+	player.x = pos[0];
+	player.y = pos[1];
+  idleTime = 0;
 	
 });
 
@@ -53,12 +55,15 @@ function timerIncrement() {
  var app = new PIXI.Application({ width: 1080, height: 720, backgroundColor: 0x1099bb });
  document.getElementById('pixi-container').appendChild(app.view);
 
- app.stage.addChild(bunny);
+ app.stage.addChild(player);
+ app.stage.addChild(burger);
 
- bunny.anchor.set(0.5);
+ player.anchor.set(0.5);
+ burger.anchor.set(0.5);
 
-// Move the sprite to the center of the screen.
- bunny.x = app.screen.width / 2;
- bunny.y = app.screen.height / 2;	
+ player.x = app.screen.width / 2;
+ player.y = app.screen.height / 2;	
+ burger.x = app.screen.width / 4;
+ burger.y = app.screen.height /4 ;	
 
 	
