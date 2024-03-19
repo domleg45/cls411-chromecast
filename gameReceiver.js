@@ -56,13 +56,17 @@ function timerIncrement() {
  document.getElementById('pixi-container').appendChild(app.view);
 
  app.stage.addChild(player);
+ app.stage.addChild(burger);
 
 
  player.anchor.set(0.5);
+ burger.anchor.set(0.5);
 
 
  player.x = app.screen.width / 2;
  player.y = app.screen.height / 2;	
+ burger.x = 50;
+ burger.y = 100;	
 
 
 	
