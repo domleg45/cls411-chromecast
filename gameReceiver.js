@@ -61,8 +61,9 @@ function timerIncrement() {
 }
 
 function burgerIsReached() {
-   var distance = distance(burger.x, burger.y, player.x, player.y);
-   if (distance <= 20) {
+   var distance1 = distance(burger.x, burger.y, player.x, player.y);
+   document.getElementById('distance1').innerHTML = "Distance = " +distance1;
+   if (distance1 <= 20) {
     return true;
    }
    return false;
