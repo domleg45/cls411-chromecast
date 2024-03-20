@@ -1,5 +1,12 @@
 const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
 const context = cast.framework.CastReceiverContext.getInstance();
+var centerX = 150; // Position X du centre
+var centerY = 150; // Position Y du centre
+var radius = 100; // Rayon du cercle
+var angle = 0; // Angle initial
+var speed = 2 * Math.PI / 1000; // Vitesse de rotation (une rotation complète toutes les 1000ms)
+var startTime = null;
+
 
 const CHANNEL = 'urn:x-cast:testChannel';
 
@@ -13,6 +20,9 @@ context.addCustomMessageListener(CHANNEL, function(customEvent) {
 	const pos = customEvent.data.msg.split(',');
 	player.x = pos[0];
 	player.y = pos[1];
+  if (burgerIsReached()) {
+    requestAnimationFrame(animate);
+  }
   idleTime = 0;
 	
 });
@@ -48,6 +58,33 @@ function timerIncrement() {
     if (idleTime > 4) { // 5 minutes
         context.stop();
     }
+}
+
+function burgerIsReached() {
+   var distance = distance(burger.x, burger.y, player.x, player.y);
+   if (distance <= 20) {
+    return true;
+   }
+   return false;
+}
+
+function animate(timestamp) {
+  if (!startTime) startTime = timestamp;
+  var progress = timestamp - startTime;
+  var newX = centerX + Math.cos(angle) * radius;
+  var newY = centerY + Math.sin(angle) * radius;
+  player.x = newX;
+  player.y = newY;
+  angle += speed * progress;
+  if (progress < 5000) { // Animation pendant 5 secondes (5000ms)
+      requestAnimationFrame(animate);
+  }
+}
+
+
+
+function distance(x1, y1, x2, y2) {
+  return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 }
 
 
