@@ -16,6 +16,41 @@ const CHANNEL = 'urn:x-cast:testChannel';
  const player = PIXI.Sprite.from(texturePlayer);
  const burger = PIXI.Sprite.from(textureBurger);
 
+ function timerIncrement() {
+    idleTime = idleTime + 1;
+    if (idleTime > 4) { // 5 minutes
+        context.stop();
+    }
+}
+
+function burgerIsReached() {
+    var distance1 = distance(burger.x, burger.y, player.x, player.y);
+    document.getElementById('distance1').innerHTML = "Distance = " +distance1;
+    if (distance1 <= 20) {
+      return true;
+    }
+    return false;
+}
+
+function animate(timestamp) {
+    if (!startTime) startTime = timestamp;
+    var progress = timestamp - startTime;
+    var newX = centerX + Math.cos(angle) * radius;
+    var newY = centerY + Math.sin(angle) * radius;
+    player.x = newX;
+    player.y = newY;
+    angle += speed * progress;
+    if (progress < 5000) { // Animation pendant 5 secondes (5000ms)
+        requestAnimationFrame(animate);
+    }
+}
+
+
+
+function distance(x1, y1, x2, y2) {
+    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+}
+
 context.addCustomMessageListener(CHANNEL, function(customEvent) {
 	const pos = customEvent.data.msg.split(',');
 	player.x = pos[0];
@@ -53,40 +88,7 @@ context.start(options);
 
 var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
 
-function timerIncrement() {
-    idleTime = idleTime + 1;
-    if (idleTime > 4) { // 5 minutes
-        context.stop();
-    }
-}
 
-function burgerIsReached() {
-   var distance1 = distance(burger.x, burger.y, player.x, player.y);
-   document.getElementById('distance1').innerHTML = "Distance = " +distance1;
-   if (distance1 <= 20) {
-    return true;
-   }
-   return false;
-}
-
-function animate(timestamp) {
-  if (!startTime) startTime = timestamp;
-  var progress = timestamp - startTime;
-  var newX = centerX + Math.cos(angle) * radius;
-  var newY = centerY + Math.sin(angle) * radius;
-  player.x = newX;
-  player.y = newY;
-  angle += speed * progress;
-  if (progress < 5000) { // Animation pendant 5 secondes (5000ms)
-      requestAnimationFrame(animate);
-  }
-}
-
-
-
-function distance(x1, y1, x2, y2) {
-  return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-}
 
 
 // Create a PixiJS application.
