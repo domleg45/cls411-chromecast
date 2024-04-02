@@ -56,8 +56,8 @@ context.addCustomMessageListener(CHANNEL, function(customEvent) {
 	player.x = pos[0];
 	player.y = pos[1];
   if (burgerIsReached()) {
-    requestAnimationFrame(animate);
     context.sendCustomMessage(CHANNEL, undefined, "test")
+    requestAnimationFrame(animate);
   }
   idleTime = 0;
 	
