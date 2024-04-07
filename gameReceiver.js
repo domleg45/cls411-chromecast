@@ -12,6 +12,18 @@ const CHANNEL = 'urn:x-cast:testChannel';
 
  const texturePlayer = await PIXI.Assets.load('./img/seagal.png');
  const textureBurger = await PIXI.Assets.load('./img/burger.png');
+ const textureExplosion = await PIXI.Assets.load('https://pixijs.com/assets/spritesheet/mc.json');
+
+  // Create an array to store the textures
+  const explosionTextures = [];
+  let i;
+
+  for (i = 0; i < 26; i++)
+  {
+      const texture = PIXI.Texture.from(`Explosion_Sequence_A ${i + 1}.png`);
+
+      explosionTextures.push(texture);
+  }
 
  const player = PIXI.Sprite.from(texturePlayer);
  const burger = PIXI.Sprite.from(textureBurger);
