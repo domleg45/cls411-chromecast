@@ -16,7 +16,6 @@ const CHANNEL = 'urn:x-cast:testChannel';
 
   // Create an array to store the textures
   const explosionTextures = [];
-  let i;
 
   for (i = 0; i < 26; i++)
   {
@@ -44,16 +43,20 @@ function burgerIsReached() {
     return false;
 }
 
-function animate(timestamp) {
-    if (!startTime) startTime = timestamp;
-    var progress = timestamp - startTime;
-    var newX = centerX + Math.cos(angle) * radius;
-    var newY = centerY + Math.sin(angle) * radius;
-    player.x = newX;
-    player.y = newY;
-    angle += speed * progress;
-    if (progress < 5000) { // Animation pendant 5 secondes (5000ms)
-        requestAnimationFrame(animate);
+function animate() {
+    let i;
+    for (i = 0; i < 50; i++)
+    {
+        // Create an explosion AnimatedSprite
+        const explosion = new PIXI.AnimatedSprite(explosionTextures);
+
+        explosion.x = Math.random() * app.screen.width;
+        explosion.y = Math.random() * app.screen.height;
+        explosion.anchor.set(0.5);
+        explosion.rotation = Math.random() * Math.PI;
+        explosion.scale.set(0.75 + Math.random() * 0.5);
+        explosion.gotoAndPlay((Math.random() * 26) | 0);
+        app.stage.addChild(explosion);
     }
 }
 
@@ -68,8 +71,8 @@ context.addCustomMessageListener(CHANNEL, function(customEvent) {
 	player.x = pos[0];
 	player.y = pos[1];
   if (burgerIsReached()) {
-    context.sendCustomMessage(CHANNEL, undefined, "miam miam!!!!")
-    requestAnimationFrame(animate);
+    context.sendCustomMessage(CHANNEL, undefined, "test")
+    animate();
   }
   idleTime = 0;
 	
@@ -100,9 +103,6 @@ options.disableIdleTimeout = true;
 context.start(options);
 
 var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
-
-
-
 
 // Create a PixiJS application.
  var app = new PIXI.Application({ width: 1080, height: 720, backgroundColor: 0x1099bb });
