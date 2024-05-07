@@ -6,4 +6,3 @@ deployment:
     - /bin/cp -R sender.html $DEPLOYPATH
     - /bin/cp -R CastVideos.js $DEPLOYPATH
     - /bin/cp -R img $DEPLOYPATH
-    /bin/cp gameReceiver.js $DEPLOYPATH
