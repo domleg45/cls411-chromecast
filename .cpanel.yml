@@ -1,7 +1,7 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/justforr/transfertco.ca/public_html/
+    - export DEPLOYPATH=/home/justforr/repositories/cls411-chromecast
     - /bin/cp -R sender.html $DEPLOYPATH
     - /bin/cp -R CastVideos.js $DEPLOYPATH
     - /bin/cp -R img $DEPLOYPATH
