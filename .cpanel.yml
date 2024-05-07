@@ -1,6 +1,6 @@
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/justforr/transfertco.ca/lab/cls411-chromecast/
+    - export DEPLOYPATH=/home/justforr/repositories/cls411-chromecast/
     - /bin/cp -R receiver.css $DEPLOYPATH
     - /bin/cp -R receiver.html $DEPLOYPATH
     - /bin/cp -R sender.html $DEPLOYPATH
