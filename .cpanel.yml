@@ -1,0 +1,9 @@
+deployment:
+  tasks:
+    - export DEPLOYPATH=/transfertco.ca/lab/cls411-chromecast/
+    - /bin/cp -R receiver.css $DEPLOYPATH
+    - /bin/cp -R receiver.html $DEPLOYPATH
+    - /bin/cp -R sender.html $DEPLOYPATH
+    - /bin/cp -R CastVideos.js $DEPLOYPATH
+    - /bin/cp -R img $DEPLOYPATH
+    /bin/cp gameReceiver.js $DEPLOYPATH
