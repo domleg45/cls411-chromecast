@@ -26,7 +26,7 @@ const CHANNEL2 = 'urn:x-cast:gameChannel';
 
 function burgerIsReached() {
     var distance1 = distance(burger.x, burger.y, player.x, player.y);
-    document.getElementById('distance1').innerHTML = "Distance = " +distance1;
+    //document.getElementById('distance1').innerHTML = "Distance = " +distance1;
     if (distance1 <= 20) {
       return true;
     }
@@ -70,7 +70,8 @@ function distance(x1, y1, x2, y2) {
 context.addCustomMessageListener(CHANNEL2, function(customEvent) {
 	const posX = customEvent.data.whereIsGoingPlayerX;
   const posY = customEvent.data.whereIsGoingPlayerY;
-  document.getElementById('distance1').innerHTML = "Distance X = " +posX + ",Distance Y = " +posY;
+  document.getElementById('distance1').innerHTML = posX;
+  document.getElementById('distance2').innerHTML = posY;
   if (burgerIsReached()) {
     context.sendCustomMessage(CHANNEL, undefined, "test")
     animate();
