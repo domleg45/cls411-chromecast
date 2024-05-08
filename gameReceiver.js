@@ -105,7 +105,7 @@ context.start(options);
 var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
 
 // Create a PixiJS application.
- var app = new PIXI.Application({ width: 1080, height: 720, backgroundColor: 0x1099bb });
+ var app = new PIXI.Application({ width: 1080, height: 720, backgroundColor: 0x222222 });
  document.getElementById('pixi-container').appendChild(app.view);
 
  app.stage.addChild(player);
