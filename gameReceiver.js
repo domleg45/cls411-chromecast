@@ -68,9 +68,9 @@ function distance(x1, y1, x2, y2) {
 }
 
 context.addCustomMessageListener(CHANNEL2, function(customEvent) {
+  var posX = customEvent.data.whereIsGoingPlayerX;
+  var posY = customEvent.data.whereIsGoingPlayerY;
   document.getElementById('distance1').innerHTML = customEvent.data;
-	const posX = customEvent.data.whereIsGoingPlayerX;
-  const posY = customEvent.data.whereIsGoingPlayerY;
   document.getElementById('distance2').innerHTML = posY;
   if (burgerIsReached()) {
     context.sendCustomMessage(CHANNEL, undefined, "test")
