@@ -9,7 +9,6 @@ var startTime = null;
 
 
 const CHANNEL = 'urn:x-cast:testChannel';
-const CHANNEL2 = 'urn:x-cast:gameChannel';
 
  const texturePlayer = await PIXI.Assets.load('./img/seagal.png');
  const textureBurger = await PIXI.Assets.load('./img/burger.png');
@@ -68,10 +67,11 @@ function distance(x1, y1, x2, y2) {
 }
 
 context.addCustomMessageListener(CHANNEL2, function(customEvent) {
-  var posX = customEvent.data.whereIsGoingPlayerX;
-  var posY = customEvent.data.whereIsGoingPlayerY;
+	const pos = customEvent.data.msg.split(',');
+	player.x = pos[0];
+	player.y = pos[1];
   document.getElementById('distance1').innerHTML = customEvent.data;
-  document.getElementById('distance2').innerHTML = posY;
+  document.getElementById('distance2').innerHTML = player.y;
   if (burgerIsReached()) {
     context.sendCustomMessage(CHANNEL, undefined, "test")
     animate();
@@ -99,7 +99,7 @@ castDebugLogger.loggerLevelByEvents = {
 const options = new cast.framework.CastReceiverOptions();
 
 options.customNamespaces = Object.assign({});
-options.customNamespaces[CHANNEL2] = cast.framework.system.MessageType.JSON;
+options.customNamespaces[CHANNEL] = cast.framework.system.MessageType.JSON;
 options.disableIdleTimeout = true;
 
 context.start(options);
