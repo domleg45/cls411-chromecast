@@ -66,11 +66,11 @@ function distance(x1, y1, x2, y2) {
     return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 }
 
-context.addCustomMessageListener(CHANNEL2, function(customEvent) {
+context.addCustomMessageListener(CHANNEL, function(customEvent) {
 	const pos = customEvent.data.msg.split(',');
 	player.x = pos[0];
 	player.y = pos[1];
-  document.getElementById('distance1').innerHTML = customEvent.data;
+  document.getElementById('distance1').innerHTML = player.x;
   document.getElementById('distance2').innerHTML = player.y;
   if (burgerIsReached()) {
     context.sendCustomMessage(CHANNEL, undefined, "test")
