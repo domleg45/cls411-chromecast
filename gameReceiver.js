@@ -85,6 +85,31 @@ function animate(image) {
 
 }
 
+
+function animateVersDroite(image) {
+  let i;
+
+  // Create an array to store the textures
+  const texture = PIXI.Texture.from(image);
+  const mouvementSprite = PIXI.Sprite.from(texture);
+  mouvementSprite.x += 20;
+  mouvementSprite.y = 100;
+  
+  for (i = 0; i < 50; i++)
+  {
+      mouvementSprite.x += 20;   
+      app.stage.addChild(mouvementSprite);
+
+      setTimeout(() => {
+        if (app.stage) { // Vérifie si l'élément est toujours dans la scène
+            app.stage.removeChild(mouvementSprite);
+        }
+      }, 100);
+
+  }
+
+}
+
 function distance(x1, y1, x2, y2) {
     return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 }
@@ -103,7 +128,7 @@ context.addCustomMessageListener(CHANNEL, function(customEvent) {
 
   if (champiIsReached()) {
     context.sendCustomMessage(CHANNEL, undefined, "test")
-    animate('./img/champi2.png');
+    animateVersDroite('./img/tibine2.png');
   }
 
   idleTime = 0;
