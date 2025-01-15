@@ -57,7 +57,17 @@ function animate() {
         explosion.scale.set(0.75 + Math.random() * 0.5);
         explosion.gotoAndPlay((Math.random() * 26) | 0);
         app.stage.addChild(explosion);
+
+        setTimeout(() => {
+          if (app.stage) { // Vérifie si l'élément est toujours dans la scène
+              app.stage.removeChild(explosion);
+          }
+        }, 3000);
+
     }
+
+
+
 }
 
 
@@ -67,6 +77,7 @@ function distance(x1, y1, x2, y2) {
 }
 
 context.addCustomMessageListener(CHANNEL, function(customEvent) {
+
 	const pos = customEvent.data.msg.split(',');
 	player.x = pos[0];
 	player.y = pos[1];
@@ -120,8 +131,8 @@ var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
 
  player.x = app.screen.width / 2;
  player.y = app.screen.height / 2;	
- burger.x = 50;
- burger.y = 100;	
+ burger.x = 400;
+ burger.y = 300;	
 
 
 	
