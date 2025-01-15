@@ -113,6 +113,8 @@ function animateVersDroite() {
         app.stage.removeChild(sprite);
     }
   }, 4000);
+
+  app.ticker.start();
 }
 
 function distance(x1, y1, x2, y2) {
