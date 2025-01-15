@@ -84,13 +84,23 @@ function animate(image) {
           }
         }, 3000);
 
+        const text = new PIXI.Text('Très gentille... Vraiment très très...', {
+            fontFamily: 'Arial',
+            fontSize: 36,
+            fill: 0xffffff,
+        });
+        text.x = app.screen.width / 2 - text.width / 2;
+        text.y = app.screen.height / 2;
+        app.stage.addChild(text);
+        fadeInText(text);
+
     }
 
 }
 
 
 function animateVersDroite() {
-  const targetX = 870;
+  const targetX = 830;
   const step = 20;
   const interval = 100;
   let elapsedTime = 0;
