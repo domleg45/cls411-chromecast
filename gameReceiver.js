@@ -40,7 +40,7 @@ function animate() {
 
     for (i = 0; i < 26; i++)
     {
-        const texture = PIXI.Texture.from(`Explosion_Sequence_A ${i + 1}.png`);
+        const texture = PIXI.Texture.from(`./img/tibine.png`);
 
         explosionTextures.push(texture);
     }
