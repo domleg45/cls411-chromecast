@@ -133,6 +133,7 @@ var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
  app.stage.addChild(burger);
 
  player.anchor.set(0.5);
+ burger.anchor.set(0.5);
 
  player.x = app.screen.width / 2;
  player.y = app.screen.height / 2;
