@@ -11,7 +11,7 @@ var startTime = null;
 const CHANNEL = 'urn:x-cast:testChannel';
 
  const texturePlayer = await PIXI.Assets.load('./img/tibine.png');
- const textureBurger = await PIXI.Assets.load('./img/fete.png');
+ const textureBurger = await PIXI.Assets.load('./img/gift.png');
  const backgroundTexture = await PIXI.Assets.load('./img/back.jpg');
  const startTexture = await PIXI.Assets.load('./img/debut.png');
  const textureExplosion = await PIXI.Assets.load('https://pixijs.com/assets/spritesheet/mc.json');
@@ -23,6 +23,7 @@ const CHANNEL = 'urn:x-cast:testChannel';
   const startMaison = PIXI.Sprite.from(startTexture);
 
   // opacité
+  burger.blendMode = PIXI.BLEND_MODES.ADD;
   burger.alpha = 0.7;
 
 
