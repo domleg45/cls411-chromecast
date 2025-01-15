@@ -90,7 +90,7 @@ function animate(image) {
 
 
 function animateVersDroite() {
-  const targetX = 1000;
+  const targetX = 870;
   const step = 20;
   const interval = 100;
   let elapsedTime = 0;
@@ -103,7 +103,7 @@ function animateVersDroite() {
               sprite.x += step; // Déplacement
           } else {
               sprite.x = targetX; // Arrêt
-              app.ticker.stop(); // Arrêter le ticker
+              //app.ticker.stop(); // Arrêter le ticker
           }
       }
   });
