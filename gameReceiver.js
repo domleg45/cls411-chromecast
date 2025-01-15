@@ -18,14 +18,11 @@ const CHANNEL = 'urn:x-cast:testChannel';
  const textureExplosion = await PIXI.Assets.load('https://pixijs.com/assets/spritesheet/mc.json');
  const player = PIXI.Sprite.from(texturePlayer);
  const cadeau = PIXI.Sprite.from(textureCadeau);
-const champi2 = PIXI.Sprite.from(textureChampi);
+ const champi2 = PIXI.Sprite.from(textureChampi);
 
   const background = new PIXI.Sprite(backgroundTexture);
   const startMaison = PIXI.Sprite.from(startTexture);
 
-  // opacité
- // burger.blendMode = PIXI.BLEND_MODES.ADD;
- // burger.alpha = 0.7;
 
 
  function timerIncrement() {
@@ -152,7 +149,8 @@ var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
 
  app.stage.addChild(startMaison);
  app.stage.addChild(player);
- app.stage.addChild(burger);
+ app.stage.addChild(cadeau);
+ app.stage.addChild(champi2);
 
  player.anchor.set(0.5);
  cadeau.anchor.set(0.5);
