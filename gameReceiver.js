@@ -23,6 +23,7 @@ const CHANNEL = 'urn:x-cast:testChannel';
  const cadeau2 = PIXI.Sprite.from(textureCadeau);
  const champi2 = PIXI.Sprite.from(textureChampi);
  const sprite = PIXI.Sprite.from(gogoTexture);
+ const sprite2 = PIXI.Sprite.from(tibine2Texture);
 
   const background = new PIXI.Sprite(backgroundTexture);
   const startMaison = PIXI.Sprite.from(startTexture);
@@ -101,9 +102,12 @@ function animate(image) {
 
 function animateVersDroite() {
   const targetX = 830;
+  const targetX2 = 830;
   const step = 20;
   const interval = 100;
+  const interval2 = 50;
   let elapsedTime = 0;
+  let elapsedTime2 = 0;
 
   app.ticker.add((delta) => {
       elapsedTime += delta * (1000 / 60); // Convertir delta en millisecondes
@@ -117,6 +121,20 @@ function animateVersDroite() {
           }
       }
   });
+
+  app.ticker.add((delta) => {
+    elapsedTime2 += delta * (1000 / 60); // Convertir delta en millisecondes
+    if (elapsedTime2 >= interval2) {
+        elapsedTime2 = 0; // Réinitialiser le temps
+        if (sprite2.x + step < targetX2) {
+            sprite2.x += step; // Déplacement
+        } else {
+            sprite2.x = targetX2; // Arrêt
+            //app.ticker.stop(); // Arrêter le ticker
+        }
+    }
+  });
+
 }
 
 function distance(x1, y1, x2, y2) {
@@ -126,6 +144,7 @@ function distance(x1, y1, x2, y2) {
 context.addCustomMessageListener(CHANNEL, function(customEvent) {
 
 	const pos = customEvent.data.msg.split(',');
+
 	player.x = pos[0];
 	player.y = pos[1];
   //document.getElementById('distance1').innerHTML = player.x;
@@ -192,12 +211,14 @@ var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
  app.stage.addChild(cadeau2);
  app.stage.addChild(champi2);
  app.stage.addChild(sprite);
+ app.stage.addChild(sprite2);
 
  player.anchor.set(0.5);
  cadeau.anchor.set(0.5);
  cadeau2.anchor.set(0.5);
  champi2.anchor.set(0.5);
  sprite.anchor.set(0.5);
+ sprite2.anchor.set(0.5);
 
  player.x = app.screen.width / 2;
  player.y = app.screen.height / 2;
@@ -209,6 +230,8 @@ var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
  champi2.y = 100;
  sprite.x = 0;
  sprite.y = 100;
+ sprite2.x = 0;
+ sprite2.y = 700;
  startMaison.x = app.screen.width / 2;
  startMaison.y = app.screen.height / 2;
 
