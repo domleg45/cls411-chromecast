@@ -23,6 +23,7 @@ const CHANNEL = 'urn:x-cast:testChannel';
   const startMaison = PIXI.Sprite.from(startTexture);
 
   // opacité
+  burger.blendMode = PIXI.BLEND_MODES.ADD;
   burger.alpha = 0.7;
 
 
