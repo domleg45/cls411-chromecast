@@ -20,7 +20,7 @@ const CHANNEL = 'urn:x-cast:testChannel';
  const player = PIXI.Sprite.from(texturePlayer);
  const cadeau = PIXI.Sprite.from(textureCadeau);
  const champi2 = PIXI.Sprite.from(textureChampi);
-
+ const sprite = PIXI.Sprite.from(tibine2Texture);
 
   const background = new PIXI.Sprite(backgroundTexture);
   const startMaison = PIXI.Sprite.from(startTexture);
@@ -93,7 +93,7 @@ function animateVersDroite() {
   const step = 20;
   const interval = 100;
   let elapsedTime = 0;
-  let sprite = PIXI.Sprite.from(tibine2Texture);
+
   app.ticker.add((delta) => {
       elapsedTime += delta * (1000 / 60); // Convertir delta en millisecondes
       if (elapsedTime >= interval) {
@@ -174,10 +174,12 @@ var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
  app.stage.addChild(player);
  app.stage.addChild(cadeau);
  app.stage.addChild(champi2);
+ app.stage.addChild(sprite);
 
  player.anchor.set(0.5);
  cadeau.anchor.set(0.5);
  champi2.anchor.set(0.5);
+ sprite.anchor.set(0.5);
 
  player.x = app.screen.width / 2;
  player.y = app.screen.height / 2;
@@ -185,6 +187,8 @@ var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
  cadeau.y = 300;
  champi2.x = 900;
  champi2.y = 100;
+ sprite.x = 0;
+ sprite.y = 100;
  startMaison.x = app.screen.width / 2;
  startMaison.y = app.screen.height / 2;
 
