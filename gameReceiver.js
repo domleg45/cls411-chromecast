@@ -42,7 +42,7 @@ function animate() {
 
     for (i = 0; i < 26; i++)
     {
-        const texture = PIXI.Texture.from(`./img/tibine.png`);
+        const texture = PIXI.Texture.from(`./img/champi.png`);
 
         explosionTextures.push(texture);
     }
