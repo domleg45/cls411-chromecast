@@ -11,13 +11,14 @@ var startTime = null;
 const CHANNEL = 'urn:x-cast:testChannel';
 
  const texturePlayer = await PIXI.Assets.load('./img/tibine.png');
- const textureBurger = await PIXI.Assets.load('./img/gift.png');
+ const textureCadeau = await PIXI.Assets.load('./img/gift.png');
+ const textureChampi = await PIXI.Assets.load('./img/champi2.png');
  const backgroundTexture = await PIXI.Assets.load('./img/back.jpg');
  const startTexture = await PIXI.Assets.load('./img/debut.png');
  const textureExplosion = await PIXI.Assets.load('https://pixijs.com/assets/spritesheet/mc.json');
  const player = PIXI.Sprite.from(texturePlayer);
- const burger = PIXI.Sprite.from(textureBurger);
-
+ const cadeau = PIXI.Sprite.from(textureCadeau);
+const champi2 = PIXI.Sprite.from(textureChampi);
 
   const background = new PIXI.Sprite(backgroundTexture);
   const startMaison = PIXI.Sprite.from(startTexture);
@@ -34,8 +35,8 @@ const CHANNEL = 'urn:x-cast:testChannel';
     }
 }
 
-function burgerIsReached() {
-    var distance1 = distance(burger.x, burger.y, player.x, player.y);
+function cadeauIsReached() {
+    var distance1 = distance(cadeau.x, cadeau.y, player.x, player.y);
     //document.getElementById('distance1').innerHTML = "Distance = " +distance1;
     if (distance1 <= 20) {
       return true;
@@ -43,7 +44,15 @@ function burgerIsReached() {
     return false;
 }
 
-function animate() {
+function champiIsReached() {
+  var distance1 = distance(champi2.x, champi2.y, player.x, player.y);
+  if (distance1 <= 20) {
+    return true;
+  }
+  return false;
+}
+
+function animate(image) {
     let i;
 
     // Create an array to store the textures
@@ -51,7 +60,7 @@ function animate() {
 
     for (i = 0; i < 26; i++)
     {
-        const texture = PIXI.Texture.from(`./img/champi.png`);
+        const texture = PIXI.Texture.from(image);
 
         explosionTextures.push(texture);
     }
@@ -90,10 +99,16 @@ context.addCustomMessageListener(CHANNEL, function(customEvent) {
 	player.y = pos[1];
   //document.getElementById('distance1').innerHTML = player.x;
   //document.getElementById('distance2').innerHTML = player.y;
-  if (burgerIsReached()) {
+  if (cadeauIsReached()) {
     context.sendCustomMessage(CHANNEL, undefined, "test")
-    animate();
+    animate('./img/champi.png');
   }
+
+  if (champiIsReached()) {
+    context.sendCustomMessage(CHANNEL, undefined, "test")
+    animate2('./img/champi2.png');
+  }
+
   idleTime = 0;
 	
 });
@@ -140,13 +155,15 @@ var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
  app.stage.addChild(burger);
 
  player.anchor.set(0.5);
- burger.anchor.set(0.5);
- 
+ cadeau.anchor.set(0.5);
+ champi2.anchor.set(0.5);
 
  player.x = app.screen.width / 2;
  player.y = app.screen.height / 2;
- burger.x = 400;
- burger.y = 300;
+ cadeau.x = 400;
+ cadeau.y = 300;
+ champi2.x = 900;
+ champi2.y = 100;
  startMaison.x = app.screen.width / 2;
  startMaison.y = app.screen.height / 2;
 
