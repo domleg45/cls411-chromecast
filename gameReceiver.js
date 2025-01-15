@@ -84,15 +84,6 @@ function animate(image) {
           }
         }, 3000);
 
-        const text = new PIXI.Text('Très gentille... Vraiment très très...', {
-            fontFamily: 'Arial',
-            fontSize: 36,
-            fill: 0xffffff,
-        });
-        text.x = app.screen.width / 2 - text.width / 2;
-        text.y = app.screen.height / 2;
-        app.stage.addChild(text);
-        fadeInText(text);
 
     }
 
@@ -117,6 +108,16 @@ function animateVersDroite() {
           }
       }
   });
+
+  const text = new PIXI.Text('Miau...', {
+    fontFamily: 'Arial',
+    fontSize: 36,
+    fill: 0xaaaaff,
+  });
+  text.x = 900;
+  text.y = 50;
+  app.stage.addChild(text);
+  fadeInText(text);
 
 }
 
