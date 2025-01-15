@@ -16,6 +16,7 @@ const CHANNEL = 'urn:x-cast:testChannel';
  const textureExplosion = await PIXI.Assets.load('https://pixijs.com/assets/spritesheet/mc.json');
  const player = PIXI.Sprite.from(texturePlayer);
  const burger = PIXI.Sprite.from(textureBurger);
+ const background = new PIXI.Sprite(backgroundTexture);
 
  function timerIncrement() {
     idleTime = idleTime + 1;
@@ -67,11 +68,7 @@ function animate() {
 
     }
 
-
-
 }
-
-
 
 function distance(x1, y1, x2, y2) {
     return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
@@ -121,9 +118,6 @@ var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
 // Create a PixiJS application.
  var app = new PIXI.Application({ width: 1080, height: 720, backgroundColor: 0x222222 });
  document.getElementById('pixi-container').appendChild(app.view);
-
- // Load the background image
- const background = new PIXI.Sprite(backgroundTexture);
 
  // Resize the background to fit the app dimensions
  background.width = app.screen.width;
