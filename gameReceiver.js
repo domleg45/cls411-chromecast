@@ -10,8 +10,8 @@ var startTime = null;
 
 const CHANNEL = 'urn:x-cast:testChannel';
 
- const texturePlayer = await PIXI.Assets.load('./img/seagal.png');
- const textureBurger = await PIXI.Assets.load('./img/burger.png');
+ const texturePlayer = await PIXI.Assets.load('./img/tibine.png');
+ const textureBurger = await PIXI.Assets.load('./img/fete.png');
  const textureExplosion = await PIXI.Assets.load('https://pixijs.com/assets/spritesheet/mc.json');
  const player = PIXI.Sprite.from(texturePlayer);
  const burger = PIXI.Sprite.from(textureBurger);
