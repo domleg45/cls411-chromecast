@@ -15,10 +15,12 @@ const CHANNEL = 'urn:x-cast:testChannel';
  const textureChampi = await PIXI.Assets.load('./img/champi2.png');
  const backgroundTexture = await PIXI.Assets.load('./img/back.jpg');
  const startTexture = await PIXI.Assets.load('./img/debut.png');
+ const tibine2Texture = await PIXI.Assets.load('./img/tibine2.png');
  const textureExplosion = await PIXI.Assets.load('https://pixijs.com/assets/spritesheet/mc.json');
  const player = PIXI.Sprite.from(texturePlayer);
  const cadeau = PIXI.Sprite.from(textureCadeau);
  const champi2 = PIXI.Sprite.from(textureChampi);
+
 
   const background = new PIXI.Sprite(backgroundTexture);
   const startMaison = PIXI.Sprite.from(startTexture);
@@ -86,28 +88,24 @@ function animate(image) {
 }
 
 
-function animateVersDroite(image) {
-  let i;
-
-  // Create an array to store the textures
-  const texture = PIXI.Texture.from(image);
-  const mouvementSprite = PIXI.Sprite.from(texture);
-  mouvementSprite.x += 20;
-  mouvementSprite.y = 100;
-  
-  for (i = 0; i < 50; i++)
-  {
-      mouvementSprite.x += 20;   
-      app.stage.addChild(mouvementSprite);
-
-      setTimeout(() => {
-        if (app.stage) { // Vérifie si l'élément est toujours dans la scène
-            app.stage.removeChild(mouvementSprite);
-        }
-      }, 100);
-
-  }
-
+function animateVersDroite() {
+  const targetX = 1000;
+  const step = 20;
+  const interval = 100;
+  let elapsedTime = 0;
+  let sprite = PIXI.Sprite.from(tibine2Texture);
+  app.ticker.add((delta) => {
+      elapsedTime += delta * (1000 / 60); // Convertir delta en millisecondes
+      if (elapsedTime >= interval) {
+          elapsedTime = 0; // Réinitialiser le temps
+          if (sprite.x + step < targetX) {
+              sprite.x += step; // Déplacement
+          } else {
+              sprite.x = targetX; // Arrêt
+              app.ticker.stop(); // Arrêter le ticker
+          }
+      }
+  });
 }
 
 function distance(x1, y1, x2, y2) {
@@ -128,7 +126,7 @@ context.addCustomMessageListener(CHANNEL, function(customEvent) {
 
   if (champiIsReached()) {
     context.sendCustomMessage(CHANNEL, undefined, "test")
-    animateVersDroite('./img/tibine2.png');
+    animateVersDroite();
   }
 
   idleTime = 0;
