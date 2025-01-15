@@ -121,13 +121,22 @@ var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
  var app = new PIXI.Application({ width: 1080, height: 720, backgroundColor: 0x222222 });
  document.getElementById('pixi-container').appendChild(app.view);
 
+// Load the background image
+const backgroundTexture = PIXI.Texture.from('./img/back.jpg'); // Replace with your image path
+const background = new PIXI.Sprite(backgroundTexture);
+
+// Resize the background to fit the app dimensions
+background.width = app.screen.width;
+background.height = app.screen.height;
+
+// Add the background to the stage
+app.stage.addChild(background);
+
  app.stage.addChild(player);
  app.stage.addChild(burger);
 
-
  player.anchor.set(0.5);
  burger.anchor.set(0.5);
-
 
  player.x = app.screen.width / 2;
  player.y = app.screen.height / 2;	
