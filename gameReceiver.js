@@ -13,10 +13,12 @@ const CHANNEL = 'urn:x-cast:testChannel';
  const texturePlayer = await PIXI.Assets.load('./img/tibine.png');
  const textureBurger = await PIXI.Assets.load('./img/fete.png');
  const backgroundTexture = await PIXI.Assets.load('./img/back.jpg');
+ const startTexture = await PIXI.Assets.load('./img/debut.png');
  const textureExplosion = await PIXI.Assets.load('https://pixijs.com/assets/spritesheet/mc.json');
  const player = PIXI.Sprite.from(texturePlayer);
  const burger = PIXI.Sprite.from(textureBurger);
  const background = new PIXI.Sprite(backgroundTexture);
+ const startMaison = PIXI.Sprite.from(startTexture);
 
  function timerIncrement() {
     idleTime = idleTime + 1;
@@ -126,16 +128,18 @@ var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
  // Add the background to the stage
  app.stage.addChild(background);
 
+ app.stage.addChild(startMaison);
  app.stage.addChild(player);
  app.stage.addChild(burger);
 
  player.anchor.set(0.5);
- burger.anchor.set(0.5);
 
  player.x = app.screen.width / 2;
- player.y = app.screen.height / 2;	
+ player.y = app.screen.height / 2;
  burger.x = 400;
- burger.y = 300;	
+ burger.y = 300;
+ startMaison.x = app.screen.width / 2;
+ startMaison.y = app.screen.height / 2;
 
 
 	
