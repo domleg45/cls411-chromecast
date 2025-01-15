@@ -16,7 +16,7 @@ const CHANNEL = 'urn:x-cast:testChannel';
  const backgroundTexture = await PIXI.Assets.load('./img/back.jpg');
  const startTexture = await PIXI.Assets.load('./img/debut.png');
  const tibine2Texture = await PIXI.Assets.load('./img/tibine2.png');
- const gogoTexture = await PIXI.Assets.load('./img/goblest.png');
+ const gogoTexture = await PIXI.Assets.load('./img/goblest2.png');
  const textureExplosion = await PIXI.Assets.load('https://pixijs.com/assets/spritesheet/mc.json');
  const player = PIXI.Sprite.from(texturePlayer);
  const cadeau = PIXI.Sprite.from(textureCadeau);
@@ -108,7 +108,11 @@ function animateVersDroite() {
       }
   });
 
-  app.stage.removeChild(sprite);
+  setTimeout(() => {
+    if (app.stage) { // Vérifie si l'élément est toujours dans la scène
+        app.stage.removeChild(sprite);
+    }
+  }, 4000);
 }
 
 function distance(x1, y1, x2, y2) {
