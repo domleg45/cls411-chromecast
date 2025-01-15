@@ -231,7 +231,7 @@ var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
  sprite.x = 0;
  sprite.y = 100;
  sprite2.x = 0;
- sprite2.y = 700;
+ sprite2.y = 620;
  startMaison.x = app.screen.width / 2;
  startMaison.y = app.screen.height / 2;
 
