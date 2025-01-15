@@ -20,6 +20,7 @@ const CHANNEL = 'urn:x-cast:testChannel';
  const textureExplosion = await PIXI.Assets.load('https://pixijs.com/assets/spritesheet/mc.json');
  const player = PIXI.Sprite.from(texturePlayer);
  const cadeau = PIXI.Sprite.from(textureCadeau);
+ const cadeau2 = PIXI.Sprite.from(textureCadeau);
  const champi2 = PIXI.Sprite.from(textureChampi);
  const sprite = PIXI.Sprite.from(gogoTexture);
 
@@ -42,6 +43,14 @@ function cadeauIsReached() {
       return true;
     }
     return false;
+}
+
+function cadeau2IsReached() {
+  var distance1 = distance(cadeau2.x, cadeau2.y, player.x, player.y);
+  if (distance1 <= 20) {
+    return true;
+  }
+  return false;
 }
 
 function champiIsReached() {
@@ -108,17 +117,6 @@ function animateVersDroite() {
           }
       }
   });
-
-  const text = new PIXI.Text('Miau...', {
-    fontFamily: 'Arial',
-    fontSize: 36,
-    fill: 0xaaaaff,
-  });
-  text.x = 900;
-  text.y = 50;
-  app.stage.addChild(text);
-  fadeInText(text);
-
 }
 
 function distance(x1, y1, x2, y2) {
@@ -135,6 +133,11 @@ context.addCustomMessageListener(CHANNEL, function(customEvent) {
   if (cadeauIsReached()) {
     context.sendCustomMessage(CHANNEL, undefined, "test")
     animate('./img/champi.png');
+  }
+
+  if (cadeau2IsReached()) {
+    context.sendCustomMessage(CHANNEL, undefined, "test")
+    animate('./img/tibine2.png');
   }
 
   if (champiIsReached()) {
@@ -186,11 +189,13 @@ var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
  app.stage.addChild(startMaison);
  app.stage.addChild(player);
  app.stage.addChild(cadeau);
+ app.stage.addChild(cadeau2);
  app.stage.addChild(champi2);
  app.stage.addChild(sprite);
 
  player.anchor.set(0.5);
  cadeau.anchor.set(0.5);
+ cadeau2.anchor.set(0.5);
  champi2.anchor.set(0.5);
  sprite.anchor.set(0.5);
 
@@ -198,6 +203,8 @@ var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
  player.y = app.screen.height / 2;
  cadeau.x = 400;
  cadeau.y = 300;
+ cadeau2.x = 800;
+ cadeau2.y = 600;
  champi2.x = 900;
  champi2.y = 100;
  sprite.x = 0;
