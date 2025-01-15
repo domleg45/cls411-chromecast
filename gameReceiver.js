@@ -103,7 +103,7 @@ context.addCustomMessageListener(CHANNEL, function(customEvent) {
 
   if (champiIsReached()) {
     context.sendCustomMessage(CHANNEL, undefined, "test")
-    animate2('./img/champi2.png');
+    animate('./img/champi2.png');
   }
 
   idleTime = 0;
