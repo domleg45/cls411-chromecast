@@ -102,7 +102,7 @@ function animate(image) {
 
 function animateVersDroite() {
   const targetX = 830;
-  const targetX2 = 830;
+  const targetX2 = 1830;
   const step = 20;
   const interval = 100;
   const interval2 = 50;
